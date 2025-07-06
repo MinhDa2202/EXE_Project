@@ -1,22 +1,21 @@
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { showAlert } from "src/Features/alertsSlice";
-import { newSignUp } from "src/Features/userSlice";
+import { setLoginData } from "src/Features/userSlice";
 import { simpleValidationCheck } from "src/Functions/componentsFunctions";
 import useOnlineStatus from "src/Hooks/Helper/useOnlineStatus";
 import s from "./LogInForm.module.scss";
 import LogInFormInputs from "./LogInFormInputs/LogInFormInputs";
 
 const LogInForm = () => {
-  const { emailOrPhone, password } = useSelector((state) => state.forms.login);
-  const { signedUpUsers } = useSelector((state) => state.user);
-  const isWebsiteOnline = useOnlineStatus();
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isWebsiteOnline = useOnlineStatus();
+  const { emailOrPhone, password } = useSelector((state) => state.forms.login);
 
-  function login(e) {
-    const inputs = e.target.querySelectorAll("input");
+  async function login(e) {
     e.preventDefault();
 
     if (!isWebsiteOnline) {
@@ -24,21 +23,67 @@ const LogInForm = () => {
       return;
     }
 
+    const inputs = e.target.querySelectorAll("input");
     const isFormValid = simpleValidationCheck(inputs);
     if (!isFormValid) return;
 
-    const dataByEmail = filterLoginByEmailOrPhone(signedUpUsers, emailOrPhone);
-    const isCorrectLoginData = checkLoginPassword(dataByEmail, password);
+    const payload = {
+      email: emailOrPhone.trim().toLowerCase(),
+      password: password.trim(),
+    };
 
-    const formDataObj = new FormData(e.target);
-    const formData = {};
+    // console.log("Payload (matching Swagger):", payload);
 
-    // Set keys and values from formDataObj to formData
-    for (let pair of formDataObj.entries()) formData[pair[0]] = pair[1];
+    try {
+      const response = await fetch("https://localhost:7235/api/Auth/login", {
+        method: "POST",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    if (isCorrectLoginData) {
-      dispatch(newSignUp(signedUpUsers));
-      logInAlert(dispatch, t);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.title || "Login failed");
+      }
+
+      const data = await response.json();
+      console.log("Login success:", data);
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+
+        // Cập nhật Redux
+        const loginState = {
+          username: data.user.fullName,
+          emailOrPhone: data.user.email,
+          token: data.token,
+          address: data.user.address || "",
+          isSignIn: true,
+        };
+        dispatch(setLoginData(loginState));
+        localStorage.setItem("userSliceData", JSON.stringify({
+          loginInfo: loginState,
+          signedUpUsers: [], // hoặc lấy signedUpUsers từ Redux nếu có
+        }));
+
+        dispatch(showAlert({
+          alertText: t("toastAlert.loginSuccess"),
+          alertState: "success",
+          alertType: "alert",
+        }));
+
+        navigate("/"); // Chuyển trang sau login
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      dispatch(showAlert({
+        alertText: t("toastAlert.loginFailed"),
+        alertState: "error",
+        alertType: "alert",
+      }));
     }
   }
 
@@ -63,30 +108,13 @@ const LogInForm = () => {
     </form>
   );
 };
+
 export default LogInForm;
 
-function checkLoginPassword(filteredUsersData, password) {
-  const isPasswordValid = filteredUsersData[0]?.password === password;
-  return isPasswordValid;
-}
-
-function filterLoginByEmailOrPhone(signedUpUsers, emailOrPhone) {
-  return signedUpUsers?.filter((user) => user.emailOrPhone === emailOrPhone);
-}
-
-function logInAlert(dispatch, t) {
-  const alertText = t("toastAlert.loginSuccess");
-  const alertState = "success";
-
-  setTimeout(
-    () => dispatch(showAlert({ alertText, alertState, alertType: "alert" })),
-    1500
-  );
-}
-
 function internetConnectionAlert(dispatch, t) {
-  const alertText = t("toastAlert.loginFailed");
-  const alertState = "error";
-
-  dispatch(showAlert({ alertText, alertState, alertType: "alert" }));
+  dispatch(showAlert({
+    alertText: t("toastAlert.loginFailed"),
+    alertState: "error",
+    alertType: "alert",
+  }));
 }

@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { googleIcon } from "src/Assets/Images/Images";
 import { DEFAULT_LOGIN_DATA } from "src/Data/globalVariables";
+import { showAlert } from "src/Features/alertsSlice";
 import { setLoginData } from "src/Features/userSlice";
 import { openSignWithGooglePopUp } from "../../SignUpWithGoogle/SignUpWithGooglePopup";
-import { signInAlert } from "../SignUpForm";
 import s from "./SignUpButtons.module.scss";
 
 const SignUpButtons = () => {
@@ -20,7 +20,7 @@ const SignUpButtons = () => {
 
     openSignWithGooglePopUp();
     setDefaultSignUpData();
-    signInAlert(t, dispatch);
+    signInAlert();
   }
 
   function setDefaultSignUpData() {
@@ -30,6 +30,15 @@ const SignUpButtons = () => {
 
       setTimeout(() => dispatch(setLoginData(DEFAULT_LOGIN_DATA)), 500);
     }, 2500);
+  }
+
+  function signInAlert() {
+    const alertText = t("toastAlert.signInSuccess");
+    const alertState = "success";
+
+    setTimeout(() => {
+      dispatch(showAlert({ alertText, alertState, alertType: "alert" }));
+    }, 1500);
   }
 
   return (

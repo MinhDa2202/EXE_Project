@@ -1,12 +1,19 @@
 import useStoreWebsiteDataToLocalStorage from "./Hooks/App/useStoreWebsiteDataToLocalStorage";
-import useChangeLangDirOnKeys from "./Hooks/Helper/useChangeLangDirOnKeys";
+import useLoadLoginFromLocalStorage from "./Hooks/App/useLoadLoginFromLocalStorage";
 import AppRoutes from "./Routes/AppRoutes";
+import ChatWidget from "./Components/ChatWidget/ChatWidget";
+
 
 function App() {
   useStoreWebsiteDataToLocalStorage();
-  // useChangeLangDirOnKeys();
+  useLoadLoginFromLocalStorage();
 
-  return <AppRoutes />;
+  return (
+    <>
+      <AppRoutes />
+      <ChatWidget />
+    </>
+  );
 }
 
 export default App;

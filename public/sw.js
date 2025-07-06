@@ -14,11 +14,15 @@ const ASSETS = [
 async function cacheAssets() {
   const cache = await caches.open(CACHE_NAME);
   await cache.addAll(ASSETS);
-
   clearOldCaches();
 }
 
 async function handleFetchAndCache(request) {
+  // Chỉ cache GET request
+  if (request.method !== "GET") {
+    return fetch(request);
+  }
+
   const cacheResponse = await caches.match(request);
 
   const networkResponse = fetch(request)
@@ -36,6 +40,7 @@ async function handleFetchAndCache(request) {
     })
     .catch((err) => {
       console.error("Fetch failed:", err);
+      return cacheResponse; // fallback cache nếu có
     });
 
   return cacheResponse || networkResponse;

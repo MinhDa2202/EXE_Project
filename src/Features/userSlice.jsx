@@ -6,41 +6,36 @@ const initialState = initialStateLocal
   ? JSON.parse(initialStateLocal)
   : {
       loginInfo: {
-        username: "Lily Watson",
-        emailOrPhone: "lily.wastons@gmail.com",
-        password: "random-password1234",
-        address: "United State, California",
-        isSignIn: true,
+        username: "",
+        emailOrPhone: "",
+        token: "",
+        address: "",
+        isSignIn: false,
       },
-      signedUpUsers: [
-        {
-          username: "Lily Watson",
-          emailOrPhone: "lily.wastons@gmail.com",
-          password: "random-password1234",
-        },
-      ],
+      signedUpUsers: [],
     };
 
 const userSlice = createSlice({
-  initialState,
   name: "userSlice",
+  initialState,
   reducers: {
+    setLoginData: (state, { payload }) => {
+      state.loginInfo = { ...payload };
+    },
+    signOut: (state) => {
+      state.loginInfo = {
+        username: "",
+        emailOrPhone: "",
+        token: "",
+        address: "",
+        isSignIn: false,
+      };
+      localStorage.removeItem("token");
+      localStorage.removeItem("userSliceData");
+    },
     newSignUp: (state, { payload }) => {
       state.signedUpUsers = payload;
       state.loginInfo.isSignIn = true;
-    },
-    setLoginData: (state, { payload }) => {
-      state.loginInfo = { ...payload };
-      state.loginInfo.isSignIn = true;
-    },
-    signOut: (state) => {
-      const guestData = {
-        username: "",
-        emailOrPhone: "",
-        password: "",
-      };
-      state.loginInfo = guestData;
-      state.loginInfo.isSignIn = false;
     },
     updateUserData: (state, { payload }) => {
       Object.assign(state.loginInfo, payload.updatedUserData);
@@ -48,6 +43,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { newSignUp, setLoginData, signOut, updateUserData } =
-  userSlice.actions;
+export const { setLoginData, signOut, newSignUp, updateUserData } = userSlice.actions;
 export default userSlice.reducer;

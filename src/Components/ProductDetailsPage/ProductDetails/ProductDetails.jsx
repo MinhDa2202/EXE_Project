@@ -8,7 +8,6 @@ import ProductPreview from "../ProductPreview/ProductPreview";
 import ProductColorsSection from "./ProductColorsSection/ProductColorsSection";
 import ProductDealingControls from "./ProductDealingControls/ProductDealingControls";
 import s from "./ProductDetails.module.scss";
-import ProductFeatures from "./ProductFeatures/ProductFeatures";
 import ProductFirstInfos from "./ProductFirstInfos/ProductFirstInfos";
 import ProductSizes from "./ProductSizes/ProductSizes";
 
@@ -60,7 +59,6 @@ const ProductDetails = ({ productData }) => {
             <ProductColorsSection productData={productData} />
             {productData?.sizes && <ProductSizes productData={productData} />}
             <ProductDealingControls productData={productData} />
-            <ProductFeatures />
           </section>
         </section>
       )}

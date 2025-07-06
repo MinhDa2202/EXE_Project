@@ -5,7 +5,6 @@ import useScrollOnMount from "src/Hooks/App/useScrollOnMount";
 import PagesHistory from "../Shared/MiniComponents/PagesHistory/PagesHistory";
 import s from "./Cart.module.scss";
 import CartButtons from "./CartButtons/CartButtons";
-import AddCoupon from "./CartInfo/AddCoupon";
 import CartInfoMenu from "./CartInfo/CartInfoMenu";
 import CartProducts from "./CartProducts/CartProducts";
 
@@ -33,7 +32,6 @@ const Cart = () => {
             <CartButtons />
 
             <div className={s.wrapper}>
-              <AddCoupon />
               <CartInfoMenu />
             </div>
           </div>

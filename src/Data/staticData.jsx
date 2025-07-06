@@ -397,29 +397,7 @@ export const mySocialMedia = [
   },
 ];
 
-export const featuresSectionData = [
-  {
-    iconImg: car,
-    iconAlt: "Car",
-    title: "FREE AND FAST DELIVERY",
-    description: "Free delivery for all orders over $140",
-    id: 1,
-  },
-  {
-    iconImg: headphone,
-    iconAlt: "Headphone",
-    title: "24/7 CUSTOMER SERVICE",
-    description: "Friendly 24/7 customer support",
-    id: 2,
-  },
-  {
-    iconImg: correctSign,
-    iconAlt: "Correct sign",
-    title: "MONEY BACK GUARANTEE",
-    description: "We return money within 30 days",
-    id: 3,
-  },
-];
+
 
 export const billingInputsData = [
   {

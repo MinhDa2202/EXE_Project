@@ -13,37 +13,7 @@ const CartInfoMenu = () => {
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
 
-  return (
-    <div className={s.menu} role="region" aria-labelledby="cart-summary">
-      <b>{t(`${cartInfo}.cartTotal`)}</b>
-
-      <div className={s.content}>
-        <div className={s.item}>
-          <span>{t(`${cartInfo}.subTotal`)}:</span>
-          <span aria-label={`Subtotal ${subTotal}`}>${subTotal}</span>
-        </div>
-
-        <div className={s.item}>
-          <span>{t(`${cartInfo}.shipping`)}:</span>
-          <span aria-label={t(`${cartInfo}.free`)}>
-            {t(`${cartInfo}.free`)}
-          </span>
-        </div>
-
-        <div className={s.item}>
-          <span>{t(`${cartInfo}.total`)}:</span>
-          <span aria-label={`Total ${subTotal}`}>${subTotal}</span>
-        </div>
-      </div>
-
-      <button
-        type="button"
-        onClick={() => handleCheckoutBtn(cartProducts, navigateTo, dispatch, t)}
-      >
-        {t("buttons.processToCheckout")}
-      </button>
-    </div>
-  );
+  
 };
 export default CartInfoMenu;
 

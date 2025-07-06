@@ -22,4 +22,11 @@ export default defineConfig({
       src: "/src",
     },
   },
+  server: {
+    host: "0.0.0.0",         // Cho phép kết nối từ bên ngoài nếu cần
+    port: 5173,              // Đảm bảo trùng port bạn đang chạy
+    hmr: {
+      clientPort: 5173,      // Đảm bảo client kết nối đúng port, nhất là khi qua proxy/Docker
+    },
+  },
 });

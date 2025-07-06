@@ -2,8 +2,6 @@ import { Helmet } from "react-helmet-async";
 import { productImg1 } from "src/Assets/Images/Images";
 import useScrollOnMount from "src/Hooks/App/useScrollOnMount";
 import CategoriesSection from "./CategoriesSection/CategoriesSection";
-import FeaturedSection from "./FeaturedSection/FeaturedSection";
-import FeaturedSectionFeatures from "./FeaturedSection/FeaturedSectionFeatures";
 import s from "./Home.module.scss";
 import MainSlider from "./Introduction/MainSlider/MainSlider";
 import SectionsMenu from "./Introduction/SectionsMenu/SectionsMenu";
@@ -18,7 +16,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>E-Commercew</title>
+        <title>Recloop Mart</title>
         <meta
           name="description"
           content="Your ultimate destination for effortless online shopping. Discover curated collections, easily add items to your cart and wishlist,and enjoy detailed product descriptions with captivating previews. Experience convenience like never before with our intuitive interface. Shop smarter with us today."
@@ -40,9 +38,7 @@ const Home = () => {
           <CategoriesSection />
           <ThisMonthSection />
           <ProductPoster />
-          <OurProductsSection />
-          <FeaturedSection />
-          <FeaturedSectionFeatures />
+          {/* <OurProductsSection /> */}
         </div>
       </main>
     </>

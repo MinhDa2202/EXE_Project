@@ -1,7 +1,7 @@
 import About from "../Components/About/About";
 import AccountPage from "../Components/AccountPage/AccountPage";
 import Cart from "../Components/Cart/Cart";
-import CheckoutPage from "../Components/CheckoutPage/CheckoutPage";
+// import CheckoutPage from "../Components/CheckoutPage/CheckoutPage";
 import Contact from "../Components/Contact/Contact";
 import FavoritePage from "../Components/FavoritePage/FavoritePage";
 import Home from "../Components/Home/Home";
@@ -25,7 +25,7 @@ export const ROUTES_CONFIG = [
   { path: "/favorites", element: <FavoritePage /> },
   { path: "/wishlist", element: <WishList /> },
   { path: "/cart", element: <Cart /> },
-  { path: "/checkout", element: <CheckoutPage /> },
+  // { path: "/checkout", element: <CheckoutPage /> },
   { path: "/order", element: <OrderPage /> },
   { path: "/signup", element: <SignUp /> },
   { path: "/login", element: <LogIn /> },

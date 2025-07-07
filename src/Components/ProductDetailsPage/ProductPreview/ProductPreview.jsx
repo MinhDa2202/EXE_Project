@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateGlobalState } from "src/Features/globalSlice";
 import PreviewImages from "./ProductImages/PreviewImages";
@@ -6,12 +7,19 @@ import s from "./ProductPreview.module.scss";
 const ProductPreview = ({ productData, handleZoomInEffect }) => {
   const { previewImg } = useSelector((state) => state.global);
   const dispatch = useDispatch();
-  const { name, otherImages } = productData;
+  const { name, otherImages, img } = productData;
   const hasOtherImages = otherImages?.length !== 0 && otherImages;
 
   function setZoomInPreview(value = false) {
     dispatch(updateGlobalState({ key: "isZoomInPreviewActive", value: value }));
   }
+
+  useEffect(() => {
+    // Set the main product image as the initial preview image
+    if (img) {
+      dispatch(updateGlobalState({ key: "previewImg", value: img }));
+    }
+  }, [img, dispatch]);
 
   return (
     <section className={s.images}>

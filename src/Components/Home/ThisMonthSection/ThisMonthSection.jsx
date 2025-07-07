@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { productsData } from "src/Data/productsData";
 import ProductsSlider from "../../Shared/MidComponents/ProductsSlider/ProductsSlider";
 import SectionTitle from "../../Shared/MiniComponents/SectionTitle/SectionTitle";
 import s from "./ThisMonthSection.module.scss";
@@ -8,6 +8,14 @@ import s from "./ThisMonthSection.module.scss";
 const ThisMonthSection = () => {
   const { t } = useTranslation();
   const thisMonthSection = "sectionTitles.thisMonthSection";
+  const { allProducts } = useSelector((state) => state.products);
+
+  function filterThisMonthProducts() {
+    // Placeholder: Show the 8 highest-rated products as "Best Selling"
+    return [...allProducts]
+      .sort((a, b) => b.rate - a.rate)
+      .slice(0, 8);
+  }
 
   return (
     <section className={s.thisMonthSection}>
@@ -27,11 +35,3 @@ const ThisMonthSection = () => {
   );
 };
 export default ThisMonthSection;
-
-function filterThisMonthProducts() {
-  const filteredProducts = productsData.filter(
-    (productData) => productData.sold > 1000
-  );
-
-  return filteredProducts;
-}

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { productsData } from "src/Data/productsData";
 import ProductsSlider from "../../Shared/MidComponents/ProductsSlider/ProductsSlider";
 import SectionTitle from "../../Shared/MiniComponents/SectionTitle/SectionTitle";
 import EventCounter from "./EventCounter";
@@ -9,6 +9,14 @@ import s from "./TodaySection.module.scss";
 const TodaySection = () => {
   const todaysSection = "sectionTitles.todaysSection";
   const { t } = useTranslation();
+  const { allProducts } = useSelector((state) => state.products);
+
+  function filterFlashSalesProducts() {
+    // Placeholder: Show the 8 most recently added products as "Flash Sales"
+    return [...allProducts]
+      .sort((a, b) => new Date(b.addedDate) - new Date(a.addedDate))
+      .slice(0, 8);
+  }
 
   return (
     <section className={s.todaysSection} id="todays-section">
@@ -29,7 +37,3 @@ const TodaySection = () => {
   );
 };
 export default TodaySection;
-
-function filterFlashSalesProducts() {
-  return productsData.filter((productData) => productData.sold > 100);
-}

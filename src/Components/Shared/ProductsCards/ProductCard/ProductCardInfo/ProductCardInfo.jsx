@@ -1,30 +1,23 @@
-import { useTranslation } from "react-i18next";
-import { translateProduct } from "../../../../Cart/CartProducts/CartProduct";
 import RateStars from "../../../MidComponents/RateStars/RateStars";
 import ProductColors from "../../../MiniComponents/ProductColors/ProductColors";
 import s from "./ProductCardInfo.module.scss";
 
 const ProductCardInfo = ({ product, showColors, navigateToProductDetails }) => {
-  const { shortName, price, discount, afterDiscount, rate, votes, colors } =
-    product;
-  const { t } = useTranslation();
+  const { name, price, discount, rate, votes, colors } = product;
 
-  const translatedProductName = translateProduct({
-    productName: shortName,
-    translateMethod: t,
-    translateKey: "shortName",
-  });
+  // In the future, if the API provides a discount, calculate the discounted price here.
+  const afterDiscount = price * (1 - discount / 100);
 
   return (
     <section className={s.productInfo}>
       <strong className={s.productName}>
         <a href="#" onClick={() => navigateToProductDetails()}>
-          {translatedProductName}
+          {name}
         </a>
       </strong>
 
       <div className={s.price}>
-        ${afterDiscount}
+        ${afterDiscount.toFixed(2)}
         {discount > 0 && <del className={s.afterDiscount}>${price}</del>}
       </div>
 

@@ -1,13 +1,17 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { productsData } from "src/Data/productsData";
 import ProductCard from "../Shared/ProductsCards/ProductCard/ProductCard";
 import s from "./ProductsCategory.module.scss";
 
 const ProductsCategory = ({ categoryName, customization }) => {
   const { t } = useTranslation();
-  const categoryProducts = productsData.filter(
-    (product) => product.category === categoryName
+  const { allProducts } = useSelector((state) => state.products);
+
+  // The API response does not contain 'category', so this will need adjustment.
+  // For now, I'll simulate the logic. This needs to be fixed once the API provides category data.
+  const categoryProducts = allProducts.filter(
+    (product) => true // Placeholder for category check
   );
   const hasProducts = categoryProducts.length > 0;
 

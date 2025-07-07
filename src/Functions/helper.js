@@ -159,13 +159,16 @@ export function setFormattedPrice(product) {
 
 export function getSubTotal(cartProducts, key = "quantity") {
   const total = cartProducts?.reduce((acc, product) => {
-    const priceAfterDiscount = +product?.afterDiscount.replaceAll(",", "");
+    // Calculate the price directly from the raw product data
+    const priceAfterDiscount = product.price * (1 - product.discount / 100);
     const quantity = +product?.[key];
     const quantityPrice = quantity * priceAfterDiscount;
     return (acc += quantityPrice);
   }, 0);
 
-  return total.toFixed(2);
+  // Ensure total is a number before calling toFixed
+  const totalNumber = total || 0;
+  return totalNumber.toFixed(2);
 }
 
 export function isQueryContainedInItem(query, item) {

@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { productsData } from "src/Data/productsData";
 import { updateLoadingState } from "src/Features/loadingSlice";
 import { updateProductsState } from "src/Features/productsSlice";
 import { searchByObjectKey } from "src/Functions/helper";
@@ -18,6 +17,29 @@ const SearchProductsInput = () => {
   const location = useLocation();
   const pathName = location.pathname;
   const [searchParams, setSearchParams] = useSearchParams();
+  const { allProducts } = useSelector((state) => state.products);
+
+  function getProducts(query) {
+    let productsFound = searchByObjectKey({
+      data: allProducts,
+      key: "shortName",
+      query,
+    });
+  
+    if (productsFound.length === 0) {
+      // Category search is not possible with the current API data structure.
+      // This part is commented out but can be re-enabled if category data becomes available.
+      /*
+      productsFound = searchByObjectKey({
+        data: allProducts,
+        key: "category",
+        query,
+      });
+      */
+    }
+  
+    return productsFound;
+  }
 
   function handleSearchProducts(e) {
     setSearchParams({ query: searchRef.current });
@@ -57,7 +79,12 @@ const SearchProductsInput = () => {
         updateLoadingState({ key: "loadingSearchProducts", value: true })
       );
     };
-  }, []);
+  }, [pathName]); // Added pathName to dependency array
+
+  function focusInput(e) {
+    const searchInput = e.currentTarget.querySelector("#search-input");
+    searchInput.focus();
+  }
 
   return (
     <form
@@ -76,26 +103,3 @@ const SearchProductsInput = () => {
 };
 
 export default SearchProductsInput;
-
-function focusInput(e) {
-  const searchInput = e.currentTarget.querySelector("#search-input");
-  searchInput.focus();
-}
-
-function getProducts(query) {
-  let productsFound = searchByObjectKey({
-    data: productsData,
-    key: "shortName",
-    query,
-  });
-
-  if (productsFound.length === 0) {
-    productsFound = searchByObjectKey({
-      data: productsData,
-      key: "category",
-      query,
-    });
-  }
-
-  return productsFound;
-}

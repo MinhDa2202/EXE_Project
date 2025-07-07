@@ -5,29 +5,24 @@ import s from "./CartProduct.module.scss";
 import RemoveCartProductBtn from "./RemoveCartProductBtn";
 
 const CartProduct = ({ data }) => {
-  const { img, name, shortName, afterDiscount, quantity, id } = data;
-  const priceAfterDiscount = afterDiscount.replaceAll(",", "");
-  const subTotal = (quantity * priceAfterDiscount).toFixed(2);
-  const { t } = useTranslation();
+  const { img, name, price, discount, quantity, id } = data;
 
-  const translatedProductName = translateProduct({
-    productName: shortName,
-    translateMethod: t,
-    translateKey: "shortName",
-  });
+  // Calculate prices directly from raw data
+  const priceAfterDiscount = price * (1 - discount / 100);
+  const subTotal = (quantity * priceAfterDiscount).toFixed(2);
 
   return (
     <tr className={s.productContainer}>
       <td className={s.product}>
         <div className={s.imgHolder}>
-          <img src={img} alt={`${shortName} product`} />
+          <img src={img} alt={`${name} product`} />
           <RemoveCartProductBtn productId={id} />
         </div>
 
-        <Link to={`/details?product=${name}`}>{translatedProductName}</Link>
+        <Link to={`/details?product=${name}`}>{name}</Link>
       </td>
 
-      <td className={s.price}>${afterDiscount}</td>
+      <td className={s.price}>${priceAfterDiscount.toFixed(2)}</td>
 
       <td>
         <CustomNumberInput product={data} quantity={quantity} />
@@ -38,19 +33,3 @@ const CartProduct = ({ data }) => {
   );
 };
 export default CartProduct;
-
-export function translateProduct({
-  productName,
-  translateMethod,
-  translateKey,
-  uppercase = false,
-  dynamicData = {},
-}) {
-  const shortNameKey = productName?.replaceAll(" ", "");
-  const productTrans = `products.${shortNameKey}`;
-  const translateText = translateMethod(
-    `${productTrans}.${translateKey}`,
-    dynamicData
-  );
-  return uppercase ? translateText.toUpperCase() : translateText;
-}

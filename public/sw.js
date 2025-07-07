@@ -21,24 +21,34 @@ async function cacheAssets() {
 async function handleFetchAndCache(request) {
   const cacheResponse = await caches.match(request);
 
-  const networkResponse = fetch(request)
-    .then(async (networkRes) => {
-      const shouldSkipCache = networkRes.url.includes("chrome-extension");
+  try {
+    // Handle cross-origin requests (like Cloudinary images)
+    if (request.url.startsWith('http') && new URL(request.url).origin !== self.location.origin) {
+      return fetch(request);
+    }
 
-      if (shouldSkipCache) return networkRes;
+    const networkResponse = await fetch(request);
 
-      if (networkRes.ok) {
-        const cache = await caches.open(CACHE_NAME);
-        await cache.put(request, networkRes.clone());
-      }
+    if (request.method !== 'GET') {
+      return networkResponse;
+    }
 
-      return networkRes;
-    })
-    .catch((err) => {
-      console.error("Fetch failed:", err);
-    });
+    if (!networkResponse.ok) {
+      throw new Error(`Network response not ok: ${networkResponse.status}`);
+    }
 
-  return cacheResponse || networkResponse;
+    const shouldSkipCache = networkResponse.url.includes("chrome-extension");
+
+    if (shouldSkipCache) return networkResponse;
+
+    const cache = await caches.open(CACHE_NAME);
+    await cache.put(request, networkResponse.clone());
+
+    return networkResponse;
+  } catch (err) {
+    console.error("Fetch failed:", err);
+    return cacheResponse || new Response(null, { status: 500, statusText: 'Fetch failed' }); // Return cached response or a generic error response
+  }
 }
 
 async function updateCachedAssets() {

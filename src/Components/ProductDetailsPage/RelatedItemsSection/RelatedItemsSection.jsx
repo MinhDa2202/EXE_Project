@@ -1,20 +1,25 @@
 import { useTranslation } from "react-i18next";
-import { productsData } from "src/Data/productsData";
+import { useSelector } from "react-redux";
 import ProductsSlider from "../../Shared/MidComponents/ProductsSlider/ProductsSlider";
 import SectionTitle from "../../Shared/MiniComponents/SectionTitle/SectionTitle";
 import s from "./RelatedItemsSection.module.scss";
 
 const RelatedItemsSection = ({ productType, currentProduct }) => {
-  const hasRelatedProducts = getProductsByRelatedType().length > 0;
+  const { allProducts } = useSelector((state) => state.products);
   const { t } = useTranslation();
 
   function getProductsByRelatedType() {
-    return productsData.filter((product) => {
-      const isSameType = product.category === productType;
-      const isCurrentProduct = product === currentProduct;
+    return allProducts.filter((product) => {
+      // The API response does not contain 'category', so this will need adjustment.
+      // For now, I'll simulate the logic. This needs to be fixed once the API provides category data.
+      const isSameType = true; // Placeholder
+      const isCurrentProduct = product.id === currentProduct.id;
       return isSameType && !isCurrentProduct;
     });
   }
+
+  const relatedProducts = getProductsByRelatedType();
+  const hasRelatedProducts = relatedProducts.length > 0;
 
   return (
     <section className={s.section}>
@@ -22,7 +27,7 @@ const RelatedItemsSection = ({ productType, currentProduct }) => {
 
       {!hasRelatedProducts && <p>No related items were found.</p>}
 
-      <ProductsSlider filterFun={getProductsByRelatedType} />
+      {hasRelatedProducts && <ProductsSlider filterFun={() => relatedProducts} />}
     </section>
   );
 };

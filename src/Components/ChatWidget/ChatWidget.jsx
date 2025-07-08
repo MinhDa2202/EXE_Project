@@ -8,33 +8,33 @@ const ChatWidget = () => {
   const toggleChat = () => setOpen(!open);
 
   const sendMessage = async (e) => {
-    e.preventDefault();
-    if (!input.trim()) return;
+  e.preventDefault();
+  if (!input.trim()) return;
 
-    try {
-      // Đẩy tin nhắn người dùng vào trước
-      setMessages(prev => [...prev, { from: 'user', text: input }]);
+  setMessages(prev => [...prev, { from: 'user', text: input }]);
 
-      const res = await fetch('https://localhost:7235/api/Ai/ask', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(input)
-      });
+ try {
+    const res = await fetch('https://localhost:7235/api/Ai/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input)
+    });
 
-      const data = await res.json();
-      
-      // Lấy phần trả lời từ API
-      const aiReply = data.candidates[0].content.parts[0].text;
+    const data = await res.json();
+    // Convert JSON thành string format đẹp
+    const aiReply = JSON.stringify(data, null, 2); 
 
-      // Đẩy tin nhắn AI vào
-      setMessages(prev => [...prev, { from: 'ai', text: aiReply }]);
-      setInput('');
-    } catch (err) {
-      console.error("Server trả lỗi:", err);
-    }
-  };
+    setMessages(prev => [...prev, { from: 'ai', text: aiReply }]);
+    setInput('');
+  } catch (err) {
+    console.error("Lỗi khi gọi API:", err);
+    setMessages(prev => [...prev, {
+      from: 'ai',
+      text: 'Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.'
+    }]);
+    setInput('');
+  }
+};
 
   return (
     <>
@@ -53,9 +53,8 @@ const ChatWidget = () => {
           overflow: 'hidden',
           animation: 'fadeIn 0.3s ease-out',
           zIndex: 9999,
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+          fontFamily: 'sans-serif'
         }}>
-          {/* Header */}
           <div style={{
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             color: '#fff',
@@ -83,10 +82,9 @@ const ChatWidget = () => {
             </button>
           </div>
 
-          {/* Messages Area */}
-          <div style={{ 
-            flex: 1, 
-            padding: '20px', 
+          <div style={{
+            flex: 1,
+            padding: '20px',
             overflowY: 'auto',
             background: '#f8fafc'
           }}>
@@ -128,16 +126,17 @@ const ChatWidget = () => {
                   maxWidth: '75%',
                   padding: '12px 16px',
                   borderRadius: msg.from === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-                  background: msg.from === 'user' 
+                  background: msg.from === 'user'
                     ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
                     : '#fff',
                   color: msg.from === 'user' ? '#fff' : '#1e293b',
                   fontSize: '14px',
                   lineHeight: '1.4',
-                  boxShadow: msg.from === 'user' 
+                  boxShadow: msg.from === 'user'
                     ? '0 2px 8px rgba(102, 126, 234, 0.3)'
                     : '0 2px 8px rgba(0, 0, 0, 0.1)',
-                  wordWrap: 'break-word'
+                  wordWrap: 'break-word',
+                  whiteSpace: 'pre-wrap'
                 }}>
                   {msg.text}
                 </div>
@@ -163,10 +162,9 @@ const ChatWidget = () => {
             ))}
           </div>
 
-          {/* Input Area */}
-          <div style={{ 
-            display: 'flex', 
-            padding: '16px 20px', 
+          <div style={{
+            display: 'flex',
+            padding: '16px 20px',
             borderTop: '1px solid #e2e8f0',
             background: '#fff'
           }}>
@@ -174,7 +172,7 @@ const ChatWidget = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Nhập tin nhắn của bạn..."
-              onKeyPress={(e) => e.key === 'Enter' && sendMessage(e)}
+              onKeyDown={(e) => e.key === 'Enter' && sendMessage(e)}
               style={{
                 flex: 1,
                 padding: '12px 16px',
@@ -184,33 +182,23 @@ const ChatWidget = () => {
                 fontSize: '14px',
                 outline: 'none',
                 fontFamily: 'inherit',
-                transition: 'border-color 0.2s',
                 background: '#f8fafc'
               }}
-              onFocus={(e) => e.target.style.borderColor = '#667eea'}
-              onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
             />
-            <button onClick={sendMessage} style={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '24px',
-              padding: '12px 20px',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: '600',
-              transition: 'transform 0.2s, box-shadow 0.2s',
-              fontFamily: 'inherit',
-              boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-1px)';
-              e.target.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 2px 8px rgba(102, 126, 234, 0.3)';
-            }}
+            <button
+              onClick={sendMessage}
+              style={{
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '24px',
+                padding: '12px 20px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: '600',
+                fontFamily: 'inherit',
+                boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)'
+              }}
             >
               Gửi
             </button>
@@ -234,17 +222,7 @@ const ChatWidget = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 0,
-          zIndex: 9999,
-          transition: 'transform 0.2s, box-shadow 0.2s'
-        }}
-        onMouseEnter={(e) => {
-          e.target.style.transform = 'scale(1.05)';
-          e.target.style.boxShadow = '0 12px 24px rgba(102, 126, 234, 0.4)';
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.transform = 'scale(1)';
-          e.target.style.boxShadow = '0 8px 16px rgba(102, 126, 234, 0.3)';
+          zIndex: 9999
         }}
       >
         <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" fill="#fff" viewBox="0 0 24 24">
@@ -254,14 +232,8 @@ const ChatWidget = () => {
 
       <style>{`
         @keyframes fadeIn {
-          from { 
-            opacity: 0; 
-            transform: translateY(20px) scale(0.95); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0) scale(1); 
-          }
+          from { opacity: 0; transform: translateY(20px) scale(0.95); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
       `}</style>
     </>

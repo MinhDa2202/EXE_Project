@@ -50,7 +50,7 @@ const LogInForm = () => {
       }
 
       const data = await response.json();
-      console.log("Login success:", data);
+      // console.log("Login success:", data);
 
       if (data.token) {
         localStorage.setItem("token", data.token);

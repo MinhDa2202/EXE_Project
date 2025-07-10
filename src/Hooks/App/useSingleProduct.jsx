@@ -1,4 +1,3 @@
-// src/Hooks/App/useSingleProduct.jsx
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateLoadingState } from "src/Features/loadingSlice";
@@ -9,11 +8,8 @@ const useSingleProduct = (productName, loadingKey = "loadingProductDetails") => 
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
 
-  // Helper function để mapping API data sang format component mong đợi
-  // Cập nhật mapApiDataToComponentFormat trong useSingleProduct.jsx
 
 const mapApiDataToComponentFormat = (apiProduct) => {
-  console.log('Raw API Product:', apiProduct);
   
   const mappedProduct = {
     // Primary identifiers
@@ -74,7 +70,6 @@ const mapApiDataToComponentFormat = (apiProduct) => {
   setAfterDiscountKey(mappedProduct);
   setFormattedPrice(mappedProduct);
   
-  console.log('Mapped Product:', mappedProduct);
   return mappedProduct;
 };
 

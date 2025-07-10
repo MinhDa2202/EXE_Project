@@ -12,9 +12,11 @@ const Sizes = ({ sizes }) => {
   }
 
   function setFirstSizeActiveClass(active) {
-    const firstSizeEle = sizesEleRef.current?.children[0];
-    firstSizeEle.classList[active ? "add" : "remove"](s.active);
-  }
+  const firstSizeEle = sizesEleRef.current?.children[0];
+  if (!firstSizeEle) return; // 🛡️ bảo vệ khỏi lỗi
+  firstSizeEle.classList[active ? "add" : "remove"](s.active);
+}
+
 
   useEffect(() => {
     setFirstSizeActiveClass(true);

@@ -14,14 +14,28 @@ const ProductCard = ({
     showFavIcon: true,
     showDetailsIcon: true,
     showRemoveIcon: false,
-    showNewText: false,
+    showNewText: true,
     showWishList: true,
     showColors: false,
   },
   removeFrom,
   loading = "eager",
 }) => {
-  const { name, discount, img, id, addedDate } = product;
+  // Debug: Log received product
+  // console.log("ProductCard received product:", product);
+  
+  // Safe destructuring với fallback values
+  const {
+    Id: id = null,
+    Title: name = "Sản phẩm không có tên",
+    Discount: discount = 0,
+    ImageUrls: imageUrls = [],
+    AddedDate: addedDate = null,
+  } = product || {};
+
+  // Debug: Log destructured values
+  // console.log("Destructured values:", { id, name, discount, imageUrls, addedDate });
+
   const {
     stopHover,
     showDiscount,
@@ -32,11 +46,13 @@ const ProductCard = ({
     showWishList,
     showColors,
   } = customization;
+
   const noHoverClass = stopHover ? s.noHover : "";
-  const hideDiscountClass = discount <= 0 || !showDiscount ? s.hide : "";
+  const hideDiscountClass = discount <= 0 ? s.hide : "";
   const hideNewClass = shouldHideNewWord();
   const { loadingProductDetails } = useSelector((state) => state.loading);
   const navigateTo = useNavigate();
+  
   const iconsData = {
     showFavIcon,
     showDetailsIcon,
@@ -45,37 +61,64 @@ const ProductCard = ({
   };
 
   function shouldHideNewWord() {
-    return checkDateBeforeMonthToPresent(addedDate) || !showNewText
-      ? s.hide
-      : "";
+    if (!addedDate) return s.hide;
+    return checkDateBeforeMonthToPresent(addedDate) ? s.hide : "";
+  }
+function navigateToProductDetails() {
+  if (loadingProductDetails || !id) return;
+  
+  console.log('Navigating to product details with ID:', id);
+  console.log('Product name:', name);
+  
+  // Sử dụng ID thay vì tên sản phẩm
+  navigateTo(`/details?id=${id}`);
+}
+
+  // Handle missing or invalid product data
+  if (!product || !id) {
+    return (
+      <div className={`${s.card} ${s.errorCard}`}>
+        <div className={s.errorMessage}>
+          <p>Lỗi hiển thị sản phẩm</p>
+        </div>
+      </div>
+    );
   }
 
-  function navigateToProductDetails() {
-    if (loadingProductDetails) return;
-    navigateTo(`/details?product=${name.toLowerCase()}`);
-  }
+  // Get image with fallback
+  const getProductImage = () => {
+    if (imageUrls && imageUrls.length > 0 && typeof imageUrls[0] === 'string' && imageUrls[0].trim() !== '') {
+      return imageUrls[0];
+    }
+    return "/placeholder-image.jpg"; // Fallback image
+  };
 
   return (
     <div className={`${s.card} ${noHoverClass}`}>
       <div className={s.productImg}>
         <div className={s.imgHolder}>
           <img
-            src={img}
+            src={getProductImage()}
             alt={name}
             aria-label={name}
             loading={loading}
             onClick={navigateToProductDetails}
+            onError={(e) => {
+              // Handle broken image
+              e.target.src = "/placeholder-image.jpg";
+              e.target.onerror = null; // Prevent infinite loop
+            }}
           />
         </div>
 
         <div className={s.layerContent}>
-          {hideNewClass && (
-            <div className={`${s.discount} ${hideDiscountClass}`}>
-              -{discount}%
-            </div>
+          {!hideNewClass && showNewText && (
+            <div className={s.new}>New</div>
           )}
-
-          <div className={`${s.new} ${hideNewClass}`}>New</div>
+          
+          {!hideDiscountClass && showDiscount && discount > 0 && (
+            <div className={s.discount}>-{discount}%</div>
+          )}
 
           <ProductCardIcons
             iconsData={iconsData}
@@ -84,6 +127,7 @@ const ProductCard = ({
             product={product}
             removeFrom={removeFrom}
           />
+          
           <AddToCartButton hoverDataAttribute={true} product={product} />
         </div>
       </div>
@@ -96,4 +140,5 @@ const ProductCard = ({
     </div>
   );
 };
+
 export default ProductCard;

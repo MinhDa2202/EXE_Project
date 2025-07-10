@@ -3,7 +3,7 @@
 import { getTranslationPaths } from "../src/Functions/helper";
 
 // Variables
-const CACHE_NAME = "e-commerce-v9";
+const CACHE_NAME = "Recloop Mart";
 const ASSETS = [
   "/",
   "/index.html",

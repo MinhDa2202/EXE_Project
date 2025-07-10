@@ -67,8 +67,6 @@ const ProductCard = ({
 function navigateToProductDetails() {
   if (loadingProductDetails || !id) return;
   
-  console.log('Navigating to product details with ID:', id);
-  console.log('Product name:', name);
   
   // Sử dụng ID thay vì tên sản phẩm
   navigateTo(`/details?id=${id}`);

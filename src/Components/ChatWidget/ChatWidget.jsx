@@ -13,7 +13,7 @@ const ChatWidget = () => {
 
   setMessages(prev => [...prev, { from: 'user', text: input }]);
 
- try {
+  try {
     const res = await fetch('https://localhost:7235/api/Ai/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -21,8 +21,29 @@ const ChatWidget = () => {
     });
 
     const data = await res.json();
-    // Convert JSON thành string format đẹp
-    const aiReply = JSON.stringify(data, null, 2); 
+    
+    let aiReply;
+    
+    // Xử lý response từ Gemini AI
+    if (data && data.candidates && data.candidates.length > 0) {
+      const candidate = data.candidates[0];
+      
+      if (candidate.content && candidate.content.parts && candidate.content.parts.length > 0) {
+        // Lấy text từ phần đầu tiên
+        aiReply = candidate.content.parts[0].text;
+      } else {
+        // Fallback nếu không có parts
+        aiReply = 'Không nhận được phản hồi từ AI.';
+      }
+    } else {
+      // Fallback nếu không có candidates
+      aiReply = 'Không nhận được phản hồi từ AI.';
+    }
+    
+    // Nếu vẫn không có nội dung, hiển thị toàn bộ response để debug
+    if (!aiReply || aiReply.trim() === '') {
+      aiReply = JSON.stringify(data, null, 2);
+    }
 
     setMessages(prev => [...prev, { from: 'ai', text: aiReply }]);
     setInput('');

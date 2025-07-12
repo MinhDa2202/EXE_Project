@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { updateProductsState } from "src/Features/productsSlice";
@@ -11,8 +11,16 @@ import s from "./ProductDetails.module.scss";
 import ProductFirstInfos from "./ProductFirstInfos/ProductFirstInfos";
 import ProductSizes from "./ProductSizes/ProductSizes";
 
-const ProductDetails = ({ productData }) => {
-  if (!productData) return <Navigate to="product-not-found" />;
+const ProductDetails = ({ productData: originalProductData }) => {
+  if (!originalProductData) return <Navigate to="product-not-found" />;
+
+  const productData = useMemo(() => {
+    return {
+      ...originalProductData,
+      shortName: originalProductData.Title,
+      otherImages: originalProductData.ImageUrls || [],
+    };
+  }, [originalProductData]);
 
   const { loadingProductDetails } = useSelector((state) => state.loading);
   const { previewImg, isZoomInPreviewActive } = useSelector(
@@ -36,7 +44,10 @@ const ProductDetails = ({ productData }) => {
     dispatch(
       updateProductsState({ key: "selectedProduct", value: productData })
     );
-  }, []);
+    if (productData.otherImages && productData.otherImages.length > 0) {
+      dispatch(updateProductsState({ key: "previewImg", value: productData.otherImages[0] }));
+    }
+  }, [productData]);
 
   return (
     <>
@@ -69,4 +80,5 @@ const ProductDetails = ({ productData }) => {
     </>
   );
 };
+
 export default ProductDetails;

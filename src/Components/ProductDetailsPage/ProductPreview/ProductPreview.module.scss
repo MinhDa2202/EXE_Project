@@ -14,10 +14,10 @@
 }
 
 .previewImgHolder {
-  width: 500px;
-  height: 540px;
-  max-height: 540px;
-  min-height: 540px;
+  width: 400px; /* Giảm chiều rộng */
+  height: 450px; /* Giảm chiều cao */
+  max-height: 450px;
+  min-height: 450px;
   border-radius: 4px;
   flex: 1;
   background-color: var(--very-light-gray2);
@@ -30,10 +30,9 @@
 
 @include m.large {
   .previewImgHolder {
-    height: 500px;
-    max-height: 500px;
-    min-height: 500px;
-    // max-height: 500px;
+    height: 400px; /* Giảm chiều cao cho màn hình lớn */
+    max-height: 400px;
+    min-height: 400px;
     @include m.center-x-y;
   }
 }
@@ -47,9 +46,9 @@
 
 @media (max-width: 480px) {
   .previewImgHolder {
-    height: 410px;
-    max-height: 410px;
-    min-height: 410px;
+    height: 350px; /* Giảm chiều cao cho màn hình di động */
+    max-height: 350px;
+    min-height: 350px;
   }
 }
 

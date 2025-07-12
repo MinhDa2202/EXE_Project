@@ -7,7 +7,6 @@ const ProductSizes = ({ productData }) => {
 
   return (
     <section className={s.sizes}>
-      <span>{t("detailsPage.size")}:</span>
       <Sizes sizes={productData?.sizes} />
     </section>
   );

@@ -6,7 +6,7 @@ import s from "./ProductPreview.module.scss";
 const ProductPreview = ({ productData, handleZoomInEffect }) => {
   const { previewImg } = useSelector((state) => state.global);
   const dispatch = useDispatch();
-  const { name, otherImages } = productData;
+  const { Title, otherImages } = productData;
   const hasOtherImages = otherImages?.length !== 0 && otherImages;
 
   function setZoomInPreview(value = false) {
@@ -20,7 +20,7 @@ const ProductPreview = ({ productData, handleZoomInEffect }) => {
       <div className={s.previewImgHolder}>
         <img
           src={previewImg}
-          alt={name}
+          alt={Title}
           onMouseMove={handleZoomInEffect}
           onMouseEnter={() => setZoomInPreview(true)}
           onMouseLeave={() => setZoomInPreview(false)}

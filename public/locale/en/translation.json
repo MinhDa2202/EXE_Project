@@ -323,7 +323,11 @@
       "title": "Featured",
       "newArrival": "New Arrival"
     },
-    "forYou": "Just For You"
+    "forYou": "Just For You",
+    "relatedItemsSection": {
+      "title": "Related Items",
+      "relatedItems": "Products"
+    }
   },
   "categoriesData": {
     "phones": "Phones",

@@ -1,19 +1,196 @@
-@use "src/Styles/mixins" as m;
-
 .dealing {
   display: flex;
-  gap: 20px;
-  margin: 18px 0 54px;
+  flex-direction: column;
+  gap: 0.6rem; /* Giảm khoảng cách */
+  padding: 0.6rem; /* Giảm padding */
+  background: #ffffff;
+  border-radius: 6px; /* Giảm bo tròn */
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Giảm đổ bóng */
+}
+
+.primaryActions {
+  display: flex;
+  gap: 0.4rem; /* Giảm khoảng cách */
+}
+
+.messageSellerButton,
+.callSellerButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem; /* Giảm khoảng cách */
+  padding: 0.6rem 0.9rem; /* Tăng padding */
+  border: none;
+  border-radius: 5px; /* Tăng bo tròn */
+  font-size: 0.9rem; /* Tăng kích thước chữ */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.messageSellerButton {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  
+  &:hover {
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+  }
+}
+
+.callSellerButton {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  
+  &:hover {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+  }
+}
+
+.secondaryActions {
+  display: flex;
+  gap: 0.4rem; /* Giảm khoảng cách */
+}
+
+.shareButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem; /* Giảm khoảng cách */
+  padding: 0.4rem 0.6rem; /* Giảm padding */
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px; /* Giảm bo tròn */
+  font-size: 0.7rem; /* Giảm kích thước chữ */
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #e2e8f0;
+    transform: translateY(-1px);
+  }
+}
+
+.buttonIcon {
+  font-size: 1.1rem; /* Tăng kích thước icon */
+}
+
+.buttonText {
+  font-weight: inherit;
+}
+
+// Seller Info Section
+.sellerInfo {
+  padding: 1rem; /* Tăng padding */
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-radius: 6px; /* Tăng bo tròn */
+  border: 1px solid #cbd5e1;
+}
+
+.sellerHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem; /* Tăng khoảng cách */
+  margin-bottom: 0.8rem; /* Tăng margin */
+  
+  h4 {
+    margin: 0;
+    font-size: 1rem; /* Tăng kích thước chữ */
+    font-weight: 600;
+    color: #1e293b;
+  }
+}
+
+.sellerIcon {
+  font-size: 1rem; /* Giảm kích thước icon */
+}
+
+.sellerDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Tăng khoảng cách */
+}
+
+.sellerItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0; /* Tăng padding */
+  border-bottom: 1px solid #cbd5e1;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.sellerLabel {
+  font-size: 0.8rem; /* Tăng kích thước chữ */
+  color: #64748b;
+  font-weight: 500;
+}
+
+.sellerValue {
+  font-size: 0.8rem; /* Tăng kích thước chữ */
+  color: #1e293b;
+  font-weight: 600;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .dealing {
+    padding: 0.6rem; /* Giảm padding */
+    gap: 0.6rem; /* Giảm khoảng cách */
+  }
+  
+  .primaryActions {
+    flex-direction: column;
+    gap: 0.4rem; /* Giảm khoảng cách */
+  }
+  
+  .messageSellerButton,
+  .callSellerButton {
+    padding: 0.7rem; /* Tăng padding */
+  }
+  
+  .secondaryActions {
+    flex-direction: column;
+    gap: 0.4rem; /* Giảm khoảng cách */
+  }
+  
+  .sellerInfo {
+    padding: 0.8rem; /* Tăng padding */
+  }
+  
+  .sellerItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem; /* Giảm khoảng cách */
+  }
 }
 
 @media (max-width: 480px) {
   .dealing {
-    flex-direction: column;
+    padding: 0.5rem; /* Giảm padding */
   }
-}
-
-.buttons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  
+  .buttonText {
+    font-size: 0.75rem; /* Tăng kích thước chữ */
+  }
+  
+  .buttonIcon {
+    font-size: 0.9rem; /* Tăng kích thước icon */
+  }
 }

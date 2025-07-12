@@ -9,7 +9,7 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
   const token = useSelector((state) => state.user?.loginInfo?.token);
   const user = useSelector((state) => state.user?.loginInfo);
   const isSignedIn = useSelector((state) => state.user?.loginInfo?.isSignIn);
-  
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -39,7 +39,7 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
     // Validate file types
     const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
     const invalidFiles = files.filter(file => !validTypes.includes(file.type));
-    
+
     if (invalidFiles.length > 0) {
       setError("Chỉ chấp nhận file ảnh (JPEG, PNG, GIF)");
       return;
@@ -48,7 +48,7 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
     // Validate file size (max 5MB per file)
     const maxSize = 5 * 1024 * 1024; // 5MB
     const oversizedFiles = files.filter(file => file.size > maxSize);
-    
+
     if (oversizedFiles.length > 0) {
       setError("Kích thước file không được vượt quá 5MB");
       return;
@@ -69,10 +69,10 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
   const removeImage = (index) => {
     const newFiles = selectedFiles.filter((_, i) => i !== index);
     const newPreviews = imagePreviews.filter((_, i) => i !== index);
-    
+
     // Revoke URL to prevent memory leaks
     URL.revokeObjectURL(imagePreviews[index].url);
-    
+
     setSelectedFiles(newFiles);
     setImagePreviews(newPreviews);
   };
@@ -81,7 +81,7 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
     if (selectedFiles.length === 0) return;
 
     setUploadProgress("Đang upload ảnh...");
-    
+
     const formData = new FormData();
     selectedFiles.forEach(file => {
       formData.append('files', file);
@@ -97,8 +97,8 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
         body: formData
       });
 
-    //   console.log('Upload response status:', response.status);
-    //   console.log('Upload response ok:', response.ok);
+      //   console.log('Upload response status:', response.status);
+      //   console.log('Upload response ok:', response.ok);
 
       if (!response.ok) {
         // Lấy chi tiết lỗi từ server
@@ -124,12 +124,12 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // console.log("=== SUBMIT STARTED ===");
     // console.log("Token:", token);
     // console.log("isSignedIn:", isSignedIn);
     // console.log("FormData:", formData);
-    
+
     setIsSubmitting(true);
     setError("");
     setUploadProgress("");
@@ -143,16 +143,16 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
 
     try {
       // Step 1: Create product
-    //   console.log("Step 1: Creating product...");
+      //   console.log("Step 1: Creating product...");
       setUploadProgress("Đang tạo sản phẩm...");
-      
+
       const payload = {
         ...formData,
         price: parseFloat(formData.price) || 0,
         categoryId: parseInt(formData.categoryId) || 0
       };
 
-    //   console.log("Payload to send:", payload);
+      //   console.log("Payload to send:", payload);
 
       const productResponse = await fetch("https://localhost:7235/api/Product", {
         method: "POST",
@@ -163,12 +163,12 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
         body: JSON.stringify(payload)
       });
 
-    //   console.log("Response status:", productResponse.status);
-    //   console.log("Response ok:", productResponse.ok);
+      //   console.log("Response status:", productResponse.status);
+      //   console.log("Response ok:", productResponse.ok);
 
       if (!productResponse.ok) {
         let errorMessage = "Không thể tạo sản phẩm";
-        
+
         if (productResponse.status === 401) {
           errorMessage = "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.";
         } else if (productResponse.status === 403) {
@@ -182,53 +182,53 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
             console.log("Could not read error response:", textError);
           }
         }
-        
+
         throw new Error(errorMessage);
       }
 
 
-// Trong AddProductModal.jsx - Sửa phần success
-const createdProduct = await productResponse.json();
-// console.log("=== CREATED PRODUCT RESPONSE ===");
-// console.log("Raw API response:", createdProduct);
-// console.log("Product ID:", createdProduct.id);
-// console.log("Product Title:", createdProduct.title);
-// console.log("Product Price:", createdProduct.price);
-// console.log("Product CategoryId:", createdProduct.categoryId);
-// console.log("Product Description:", createdProduct.description);
-// console.log("Product Condition:", createdProduct.condition);
-// console.log("Product Locations:", createdProduct.locations);
+      // Trong AddProductModal.jsx - Sửa phần success
+      const createdProduct = await productResponse.json();
+      // console.log("=== CREATED PRODUCT RESPONSE ===");
+      // console.log("Raw API response:", createdProduct);
+      // console.log("Product ID:", createdProduct.id);
+      // console.log("Product Title:", createdProduct.title);
+      // console.log("Product Price:", createdProduct.price);
+      // console.log("Product CategoryId:", createdProduct.categoryId);
+      // console.log("Product Description:", createdProduct.description);
+      // console.log("Product Condition:", createdProduct.condition);
+      // console.log("Product Locations:", createdProduct.locations);
 
-// Step 2: Upload images if any
-if (selectedFiles.length > 0) {
-  console.log("Step 2: Uploading images...");
-  try {
-    await uploadImages(createdProduct.id);
-    setUploadProgress("Upload ảnh thành công!");
-  } catch (uploadError) {
-    console.warn("Image upload failed, but product was created:", uploadError);
-    setUploadProgress("Sản phẩm đã được tạo, nhưng upload ảnh thất bại.");
-  }
-}
+      // Step 2: Upload images if any
+      if (selectedFiles.length > 0) {
+        console.log("Step 2: Uploading images...");
+        try {
+          await uploadImages(createdProduct.id);
+          setUploadProgress("Upload ảnh thành công!");
+        } catch (uploadError) {
+          console.warn("Image upload failed, but product was created:", uploadError);
+          setUploadProgress("Sản phẩm đã được tạo, nhưng upload ảnh thất bại.");
+        }
+      }
 
-// Success
-// console.log("=== SUCCESS - CALLING onProductAdded ===");
-setUploadProgress("Thêm sản phẩm thành công!");
+      // Success
+      // console.log("=== SUCCESS - CALLING onProductAdded ===");
+      setUploadProgress("Thêm sản phẩm thành công!");
 
-// Gọi callback ngay lập tức
-onProductAdded();
-      
+      // Gọi callback ngay lập tức
+      onProductAdded();
+
     } catch (err) {
       console.error("=== ERROR ===");
       console.error("Error details:", err);
       console.error("Error message:", err.message);
       console.error("Error stack:", err.stack);
-      
+
       setError(err.message || "Đã xảy ra lỗi khi thêm sản phẩm");
       setUploadProgress(""); // Clear progress message
     } finally {
-    //   console.log("=== FINALLY BLOCK ===");
-    //   console.log("Setting isSubmitting to false");
+      //   console.log("=== FINALLY BLOCK ===");
+      //   console.log("Setting isSubmitting to false");
       setIsSubmitting(false);
     }
   };
@@ -328,15 +328,17 @@ onProductAdded();
               <label htmlFor="categoryId">
                 {t("products.category", "Danh mục")}
               </label>
-              <input
-                type="number"
+              <select
                 id="categoryId"
                 name="categoryId"
                 value={formData.categoryId}
                 onChange={handleInputChange}
-                min="0"
-                placeholder="0"
-              />
+              >
+                <option value="">Chọn danh mục</option>
+                <option value="1">Laptop</option>
+                <option value="2">Smartwatch</option>
+                <option value="3">Phone</option>
+              </select>
             </div>
           </div>
 
@@ -429,21 +431,21 @@ onProductAdded();
           )}
 
           <div className={s.formActions}>
-            <button 
-              type="button" 
+            <button
+              type="button"
               className={s.cancelButton}
               onClick={onClose}
               disabled={isSubmitting}
             >
               {t("common.cancel", "Hủy")}
             </button>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className={s.submitButton}
               disabled={isSubmitting}
             >
-              {isSubmitting 
-                ? t("common.adding", "Đang thêm...") 
+              {isSubmitting
+                ? t("common.adding", "Đang thêm...")
                 : t("products.addProduct", "Thêm sản phẩm")
               }
             </button>

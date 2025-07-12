@@ -129,6 +129,40 @@ const ProductDetailsPage = () => {
         <main className={s.detailsPage}>
           <PagesHistory history={history} historyPaths={historyPaths} />
           <ProductDetails productData={PRODUCT_DATA} />
+          
+          {/* Phần thông tin bổ sung và bình luận */}
+          <div className={s.additionalInfo}>
+            {/* Mô tả chi tiết */}
+            {PRODUCT_DATA?.Descriptions && (
+              <div className={s.descriptionCard}>
+                <div className={s.cardHeader}>
+                  <h3>📝 Mô tả chi tiết</h3>
+                </div>
+                <div className={s.cardContent}>
+                  <p>{PRODUCT_DATA.Descriptions}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Phần bình luận */}
+            <div className={s.commentsCard}>
+              <div className={s.cardHeader}>
+                <h3>💬 Bình luận & Đánh giá</h3>
+                <span className={s.badge}>0</span>
+              </div>
+              <div className={s.cardContent}>
+                <div className={s.emptyComments}>
+                  <div className={s.emptyIcon}>💭</div>
+                  <h4>Chưa có bình luận nào</h4>
+                  <p>Hãy là người đầu tiên bình luận về sản phẩm này!</p>
+                  <button className={s.addCommentBtn}>
+                    ✍️ Viết bình luận
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <RelatedItemsSection
             productType={PRODUCT_DATA?.category}
             currentProduct={PRODUCT_DATA}

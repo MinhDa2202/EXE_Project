@@ -37,7 +37,7 @@ const mapApiDataToComponentFormat = (apiProduct) => {
     Votes: apiProduct.reviewCount || 0,
     
     // Product details
-    description: apiProduct.description,
+    Descriptions: apiProduct.descriptions,
     category: apiProduct.categoryName || "Unknown",
     
     // Additional fields
@@ -55,7 +55,7 @@ const mapApiDataToComponentFormat = (apiProduct) => {
     
     // Additional API fields
     condition: apiProduct.condition || "best",
-    location: apiProduct.location || "",
+    location: apiProduct.locations || "",
     isActive: apiProduct.isActive || true,
   };
 

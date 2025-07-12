@@ -1,8 +1,8 @@
 // src/Components/ProductDetailsPage/ProductDetailsPage.module.scss
 
 .detailsPage {
-  min-height: 60vh;
-  padding: 1rem 0;
+  min-height: 20vh; /* Giảm chiều cao tối thiểu thêm */
+  padding: 0.15rem 0; /* Giảm padding thêm */
 }
 
 .loadingContainer {
@@ -102,6 +102,113 @@
   }
 }
 
+// Phần thông tin bổ sung mới
+.additionalInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem; /* Tăng khoảng cách giữa các cột */
+  margin: 2.5rem var(--page-margin); /* Tăng margin phía trên */
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 2rem; /* Tăng khoảng cách cho màn hình nhỏ hơn */
+  }
+}
+
+.descriptionCard,
+.commentsCard {
+  background: #ffffff;
+  border-radius: 2px; /* Giảm bo tròn */
+  box-shadow: 0 0.1px 0.1px rgba(0, 0, 0, 0.01); /* Giảm đổ bóng */
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 0.25px 1px rgba(0, 0, 0, 0.015); /* Giảm đổ bóng hover */
+    transform: translateY(-0.25px);
+  }
+}
+
+.cardHeader {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 1rem; /* Tăng padding */
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.badge {
+  background: #3b82f6;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.cardContent {
+  padding: 1.2rem; /* Tăng padding */
+  
+  p {
+    color: #4b5563;
+    line-height: 1.7; /* Tăng line-height */
+    font-size: 1rem; /* Tăng kích thước chữ */
+    margin: 0;
+  }
+}
+
+.emptyComments {
+  text-align: center;
+  padding: 3rem 0; /* Tăng padding */
+  
+  .emptyIcon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+  
+  h4 {
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem;
+  }
+  
+  p {
+    color: #9ca3af;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+.addCommentBtn {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.6rem; /* Tăng padding */
+  border-radius: 10px; /* Tăng bo tròn */
+  cursor: pointer;
+  font-size: 0.9rem; /* Tăng kích thước chữ */
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -126,5 +233,21 @@
   .backButton, .browseButton {
     width: 100%;
     max-width: 200px;
+  }
+  
+  .additionalInfo {
+    margin: 1.5rem 0.8rem; /* Giảm margin */
+  }
+  
+  .cardHeader {
+    padding: 0.8rem; /* Giảm padding */
+    
+    h3 {
+      font-size: 1rem; /* Giảm kích thước chữ */
+    }
+  }
+  
+  .cardContent {
+    padding: 0.8rem; /* Giảm padding */
   }
 }

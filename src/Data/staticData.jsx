@@ -307,19 +307,11 @@ export const mobileNavData = [
 ];
 
 export const getRestMobileNavData = ({
-  cartProducts,
   orderProducts,
   favoritesProducts,
   wishList,
 }) => {
   return [
-    {
-      iconName: "cart3",
-      routePath: "/cart",
-      text: "my cart",
-      countLength: cartProducts.length,
-      id: mobileNavData.length + 1,
-    },
     {
       iconName: "cart",
       routePath: "/order",

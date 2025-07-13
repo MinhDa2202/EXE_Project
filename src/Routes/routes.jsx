@@ -1,8 +1,9 @@
 import About from "../Components/About/About";
 import AccountPage from "../Components/AccountPage/AccountPage";
-import Cart from "../Components/Cart/Cart";
 // import CheckoutPage from "../Components/CheckoutPage/CheckoutPage";
 import Contact from "../Components/Contact/Contact";
+import DonBan from "../Components/DonBan/DonBan";
+import DonMua from "../Components/DonMua/DonMua";
 import FavoritePage from "../Components/FavoritePage/FavoritePage";
 import Home from "../Components/Home/Home";
 import LogIn from "../Components/LogIn/LogIn";
@@ -24,12 +25,13 @@ export const ROUTES_CONFIG = [
   { path: "/products", element: <ProductsPage /> },
   { path: "/favorites", element: <FavoritePage /> },
   { path: "/wishlist", element: <WishList /> },
-  { path: "/cart", element: <Cart /> },
   // { path: "/checkout", element: <CheckoutPage /> },
   { path: "/order", element: <OrderPage /> },
   { path: "/signup", element: <SignUp /> },
   { path: "/login", element: <LogIn /> },
   { path: "/profile", element: <AccountPage /> },
   { path: "/search", element: <SearchPage /> },
+  { path: "/don-mua", element: <DonMua /> },
+  { path: "/don-ban", element: <DonBan /> },
   { path: "*", element: <NotFoundPage /> },
 ];

@@ -1,51 +1,102 @@
 @use "src/Styles/mixins" as m;
 
 .LogInPage {
-  margin-top: 75px;
-  margin-bottom: 120px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  margin: 0;
 }
 
 .container {
   display: flex;
   align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  width: var(--container-width);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 600px;
 }
 
 @include m.large {
   .container {
-    flex-direction: column-reverse;
+    flex-direction: column;
+    max-width: 500px;
+    min-height: auto;
   }
 }
 
 @include m.medium {
   .container {
-    width: 94%;
+    width: 95%;
     margin: 0 auto;
+    border-radius: 16px;
   }
 }
 
 .imgHolder {
-  max-width: 805px;
-  max-height: 781px;
-  width: 805px;
-  height: 781px;
-  border-radius: 0 4px 4px 0;
+  flex: 1;
+  max-width: 50%;
+  height: 600px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.imgHolder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.imgHolder img {
+  max-width: 80%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
 }
 
 @include m.large {
   .imgHolder {
-    max-width: 400px;
-    max-height: none;
-    width: 400px;
-    height: auto;
-    margin-top: 50px;
+    max-width: 100%;
+    height: 200px;
+    border-radius: 16px 16px 0 0;
+  }
+  
+  .imgHolder img {
+    max-width: 60%;
   }
 }
 
 @media (max-width: 500px) {
+  .LogInPage {
+    padding: 20px 10px;
+  }
+  
+  .container {
+    border-radius: 12px;
+  }
+  
   .imgHolder {
-    width: 100%;
-    max-width: none;
+    height: 150px;
+  }
+  
+  .imgHolder img {
+    max-width: 50%;
   }
 }

@@ -1,42 +1,56 @@
 @use "src/Styles/mixins" as m;
 
 .form {
-  max-width: 371px;
-  width: 371px;
-  margin: 0 120px;
+  flex: 1;
+  max-width: 450px;
+  width: 100%;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (max-width: 1300px) {
   .form {
-    margin: 0 60px;
+    padding: 40px 30px;
   }
 }
 
 @include m.medium {
   .form {
-    margin: 0;
-    width: 100%;
+    padding: 40px 30px;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 500px) {
   .form {
-    max-width: none;
+    padding: 30px 20px;
   }
 }
 
-.form>h2 {
-  font: 500 2.25rem/30px "Inter", sans-serif;
-  letter-spacing: .04rem;
-  width: max-content;
+.form > h2 {
+  font: 600 2.5rem/1.2 "Inter", sans-serif;
+  letter-spacing: -0.02em;
+  color: #2d3748;
+  margin-bottom: 8px;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 @include m.small {
-  .form>h2 {
-    font-size: 1.8rem;
+  .form > h2 {
+    font-size: 2rem;
   }
 }
 
-.form>p {
-  margin: 20px 0 30px;
+.form > p {
+  margin: 0 0 40px;
+  color: #718096;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }

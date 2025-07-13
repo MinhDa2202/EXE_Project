@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { checkDateBeforeMonthToPresent } from "src/Functions/helper";
-import AddToCartButton from "./AddToCartButton/AddToCartButton";
 import s from "./ProductCard.module.scss";
 import ProductCardIcons from "./ProductCardIcons/ProductCardIcons";
 import ProductCardInfo from "./ProductCardInfo/ProductCardInfo";
@@ -125,8 +124,6 @@ function navigateToProductDetails() {
             product={product}
             removeFrom={removeFrom}
           />
-          
-          <AddToCartButton hoverDataAttribute={true} product={product} />
         </div>
       </div>
 

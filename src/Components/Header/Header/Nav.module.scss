@@ -7,40 +7,56 @@
 .nav ul {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 32px;
 }
 
-.nav ul>li {
+.nav ul > li {
   -webkit-tap-highlight-color: transparent;
 }
 
 @include m.medium {
   .nav ul {
-    gap: 18px;
+    gap: 20px;
 
     & li {
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
 }
 
 .nav ul li a {
   outline: none;
-  padding: 2px 0;
+  padding: 8px 12px;
   color: var(--black);
   position: relative;
   outline: dashed 0 var(--regular-light-gray);
   outline-offset: 0;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  text-decoration: none;
 
   &:focus-visible {
-    transition: opacity .3s, var(--outline-transition);
-    outline: 2px dashed var(--very-dark-gray);
-    outline-offset: 3px;
-    color: var(--very-dark-gray);
+    outline: 2px solid var(--orange-degree2);
+    outline-offset: 2px;
+    color: var(--orange-degree2);
+    background-color: rgba(255, 165, 0, 0.05);
   }
 
-  &[class=active]::before {
-    opacity: .5;
+  &[class="active"] {
+    color: var(--orange-degree2);
+    background-color: rgba(255, 165, 0, 0.1);
+    font-weight: 600;
+  }
+
+  &[class="active"]::before {
+    opacity: 1;
+    background-color: var(--orange-degree2);
+  }
+
+  &:hover:not([class="active"]) {
+    color: var(--very-dark-gray);
+    background-color: rgba(0, 0, 0, 0.05);
   }
 
   &:hover::before {
@@ -49,45 +65,86 @@
 }
 
 .nav ul li a::before {
-  content: '';
+  content: "";
   position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 1px;
+  left: 50%;
+  bottom: 2px;
+  width: 0;
+  height: 2px;
   background-color: var(--black);
   opacity: 0;
-  transition: opacity .3s;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav ul li:hover a::before {
+  width: 60%;
 }
 
 .nav ul li a:focus-visible::before {
-  background-color: transparent;
+  background-color: var(--orange-degree2);
+  width: 60%;
+  opacity: 1;
+}
+
+// Enhanced Sign Up button styling
+.authLink {
+  margin-left: 8px;
+  
+  .signUpLink {
+    background: linear-gradient(135deg, var(--orange-degree2), #ff8c00);
+    color: white !important;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(255, 165, 0, 0.2);
+    transition: all 0.3s ease;
+    border: none;
+
+    &:hover {
+      background: linear-gradient(135deg, #ff8c00, var(--orange-degree2));
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
+      color: white !important;
+    }
+
+    &:focus-visible {
+      outline: 3px solid rgba(255, 165, 0, 0.3);
+      outline-offset: 2px;
+      background: linear-gradient(135deg, #ff8c00, var(--orange-degree2));
+      color: white !important;
+    }
+
+    &::before {
+      display: none;
+    }
+  }
 }
 
 // Arabic styles
 @include m.medium {
-  [lang=ar] .nav ul {
-    gap: 14px;
+  [lang="ar"] .nav ul {
+    gap: 16px;
   }
 }
 
 // French styles
 @include m.medium {
-  [lang=fr] .nav ul {
-    gap: 12px;
+  [lang="fr"] .nav ul {
+    gap: 14px;
   }
 }
 
 // Hungarian styles
 @include m.medium {
-  [lang=hu] .nav ul {
-    gap: 12px;
+  [lang="hu"] .nav ul {
+    gap: 14px;
   }
 }
 
 // Russian styles
 @include m.medium {
-  [lang=ru] .nav ul {
-    gap: 12px;
+  [lang="ru"] .nav ul {
+    gap: 14px;
   }
 }

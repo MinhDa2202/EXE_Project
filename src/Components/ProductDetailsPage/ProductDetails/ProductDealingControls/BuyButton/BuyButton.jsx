@@ -6,7 +6,7 @@ import { compareDataByObjValue } from "src/Functions/helper";
 import s from "./BuyButton.module.scss";
 
 const BuyButton = () => {
-  const { selectedProduct, productQuantity, cartProducts, orderProducts } =
+  const { selectedProduct, productQuantity, orderProducts } =
     useSelector((state) => state.products);
   const {
     loginInfo: { isSignIn },
@@ -15,12 +15,6 @@ const BuyButton = () => {
   const { t } = useTranslation();
 
   function handleBuyProduct() {
-    const isAlreadyAddedToCart = compareDataByObjValue(
-      cartProducts,
-      selectedProduct,
-      "shortName"
-    );
-
     const isAlreadyAddedToOrder = compareDataByObjValue(
       orderProducts,
       selectedProduct,
@@ -32,26 +26,21 @@ const BuyButton = () => {
       return;
     }
 
-    if (isAlreadyAddedToCart) {
-      showWarning("productAlreadyInCart");
-      return;
-    }
-
     if (isAlreadyAddedToOrder) {
       showWarning("productAlreadyInOrder");
       return;
     }
 
-    addToCart();
+    addToOrder();
   }
 
-  function addToCart() {
+  function addToOrder() {
     const clonedProduct = { ...selectedProduct };
     clonedProduct.quantity = productQuantity;
 
     dispatch(
       addToArray({
-        key: "cartProducts",
+        key: "orderProducts",
         value: clonedProduct,
       })
     );

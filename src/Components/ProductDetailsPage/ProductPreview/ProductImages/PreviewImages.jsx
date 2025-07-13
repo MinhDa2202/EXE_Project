@@ -10,8 +10,10 @@ const PreviewImages = ({ productData }) => {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    setPreviewImg(productData.otherImages[0], dispatch);
-  }, [searchParams]);
+    if (productData && productData.otherImages && productData.otherImages.length > 0) {
+      setPreviewImg(productData.otherImages[0], dispatch);
+    }
+  }, [productData, dispatch]);
 
   return (
     <div className={s.otherImages}>

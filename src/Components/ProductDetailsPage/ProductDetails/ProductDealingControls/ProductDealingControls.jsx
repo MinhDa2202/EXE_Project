@@ -1,11 +1,22 @@
+import { useNavigate } from "react-router-dom";
 import AddToFavButton from "./AddToFavButton/AddToFavButton";
 import s from "./ProductDealingControls.module.scss";
 
 const ProductDealingControls = ({ productData }) => {
-  const handleMessageSeller = () => {
-    // Logic để mở chat hoặc chuyển hướng đến trang nhắn tin
-    console.log("Message seller clicked");
-  };
+  const navigate = useNavigate();
+
+const handleMessageSeller = () => {
+  navigate('/chat', {
+    state: {
+      productData: productData, // ✅ Truyền nguyên object đã được map đúng từ useSingleProduct
+      sellerId: productData.sellerId || productData.SellerId,
+      sellerName: productData.sellerName || "Người bán"
+    }
+  });
+};
+
+// console.log('productData for chat:', productData);
+
 
   const handleCallSeller = () => {
     // Logic để gọi điện cho người bán

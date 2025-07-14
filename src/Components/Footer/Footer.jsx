@@ -52,9 +52,6 @@ const Footer = () => {
                 <Link to="/signup">{t(`${section}3.loginRegister`)}</Link>
               </li>
               <li>
-                <Link to="/cart">{t(`${section}3.cart`)}</Link>
-              </li>
-              <li>
                 <Link to="/wishlist">{t(`${section}3.wishlist`)}</Link>
               </li>
               <li>

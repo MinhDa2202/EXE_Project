@@ -9,6 +9,7 @@
 .tools {
   display: flex;
   align-items: center;
+  gap: 16px; // Added for equal spacing between icons
 }
 
 .tools>:where(button, a) {
@@ -18,8 +19,5 @@
   position: relative;
   cursor: pointer;
   width: fit-content;
-
-  &:not(:last-child) {
-    margin-inline-end: 16px;
-  }
+  // Removed margin-inline-end as gap handles spacing
 }

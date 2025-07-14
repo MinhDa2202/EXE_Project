@@ -42,6 +42,28 @@ const ProductDetailsPage = () => {
 
   useScrollOnMount(200);
 
+  // Function to parse description into table data
+  const parseDescriptionToTableData = (descriptionString) => {
+    const lines = descriptionString.split('\\n').filter(line => line.trim() !== '');
+    const data = [];
+    let currentCategory = '';
+
+    lines.forEach(line => {
+      const parts = line.split(':');
+      if (parts.length > 1) {
+        const key = parts[0].trim();
+        const value = parts.slice(1).join(':').trim();
+        data.push({ key, value, isCategory: false });
+      } else {
+        // Treat as a category if no colon is found
+        data.push({ key: line.trim(), value: '', isCategory: true });
+      }
+    });
+    return data;
+  };
+
+  const descriptionTableData = PRODUCT_DATA?.Descriptions ? parseDescriptionToTableData(PRODUCT_DATA.Descriptions) : [];
+
   // Loading state
   if (loadingProductDetails) {
     return (
@@ -88,13 +110,13 @@ const ProductDetailsPage = () => {
                 <h2>Không tìm thấy sản phẩm</h2>
                 <p>{error || "Sản phẩm bạn đang tìm kiếm không tồn tại hoặc đã bị xóa."}</p>
                 <div className={s.errorActions}>
-                  <button 
+                  <button
                     onClick={() => window.history.back()}
                     className={s.backButton}
                   >
                     Quay lại
                   </button>
-                  <button 
+                  <button
                     onClick={() => window.location.href = "/products"}
                     className={s.browseButton}
                   >
@@ -139,7 +161,22 @@ const ProductDetailsPage = () => {
                   <h3>📝 Mô tả chi tiết</h3>
                 </div>
                 <div className={s.cardContent}>
-                  <p>{PRODUCT_DATA.Descriptions}</p>
+                  <table className={s.descriptionTable}>
+                    <tbody>
+                      {descriptionTableData.map((item, index) => (
+                        item.isCategory ? (
+                          <tr key={index} className={s.tableCategoryRow}>
+                            <td colSpan="2"><strong>{item.key}</strong></td>
+                          </tr>
+                        ) : (
+                          <tr key={index}>
+                            <td className={s.tableKey}>{item.key}</td>
+                            <td className={s.tableValue}>{item.value}</td>
+                          </tr>
+                        )
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}

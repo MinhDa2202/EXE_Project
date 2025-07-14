@@ -1,6 +1,7 @@
 @use "src/Styles/mixins" as m;
 
-.section {
+.relatedItemsSection {
+  margin-top: 4rem; /* Add top margin to separate from previous section */
   display: flex;
   flex-direction: column;
   gap: 30px;

@@ -5,16 +5,32 @@
   position: absolute;
   left: 20px;
   top: 129px;
-  background-color: transparent;
-  border: none;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid rgba(231, 76, 60, 0.1);
   outline: none;
   cursor: pointer;
   display: none;
   z-index: 2;
-  transition: opacity .2s;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 
   &:hover {
-    opacity: .7;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(231, 76, 60, 0.2);
+    border-color: var(--tomato);
+    background: linear-gradient(135deg, #fff 0%, #ffeaea 100%);
+  }
+
+  &:focus {
+    outline: 2px solid var(--tomato);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 
@@ -27,15 +43,33 @@
 @include m.very-small {
   .profileSectionsButton {
     left: 10px;
+    padding: 10px;
   }
 }
 
-.profileSectionsButton>svg {
-  width: 25px;
-  height: 25px;
+.profileSectionsButton > svg {
+  width: 24px;
+  height: 24px;
+  color: var(--dark-tomato);
+  transition: all 0.3s ease;
+}
+
+.profileSectionsButton:hover > svg {
+  color: var(--tomato);
+  transform: scale(1.1);
 }
 
 // Arabic styles
 [lang=ar] .profileSectionsButton {
   top: 126px;
+  left: auto;
+  right: 20px;
+}
+
+[lang=ar] {
+  @include m.very-small {
+    .profileSectionsButton {
+      right: 10px;
+    }
+  }
 }

@@ -4,8 +4,6 @@ import useScrollOnMount from "src/Hooks/App/useScrollOnMount";
 import CategoriesSection from "./CategoriesSection/CategoriesSection";
 import s from "./Home.module.scss";
 import MainSlider from "./Introduction/MainSlider/MainSlider";
-import SectionsMenu from "./Introduction/SectionsMenu/SectionsMenu";
-import OurProductsSection from "./OurProductsSection/OurProductsSection";
 import ProductPoster from "./ProductPoster/ProductPoster";
 import ThisMonthSection from "./ThisMonthSection/ThisMonthSection";
 import TodaySection from "./TodaySection/TodaySection";
@@ -28,8 +26,6 @@ const Home = () => {
       <main className={s.home}>
         <div className={s.container}>
           <div className={s.introductionContainer}>
-            <SectionsMenu />
-
             <div className={s.line} />
 
             <MainSlider />
@@ -40,7 +36,7 @@ const Home = () => {
           <ThisMonthSection />
           <ProductPoster />
           <CompareSection />
-          
+
           {/* <OurProductsSection /> */}
         </div>
       </main>

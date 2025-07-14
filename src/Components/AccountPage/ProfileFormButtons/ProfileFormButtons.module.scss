@@ -2,65 +2,139 @@
 
 .buttons {
   align-self: flex-end;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(231, 76, 60, 0.1);
 }
 
 @include m.very-small {
   .buttons {
     align-self: normal;
     display: flex;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
-.buttons>a {
+.buttons > a {
   -webkit-tap-highlight-color: transparent;
-  background-color: transparent;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   outline: none;
-  border: none;
-  padding: 4px;
-  margin-inline-end: 16px;
-  color: var(--black);
+  border: 2px solid rgba(231, 76, 60, 0.1);
+  padding: 12px 24px;
+  margin-inline-end: 0;
+  color: var(--dark-gray);
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
 
   &:hover {
     color: var(--tomato);
+    border-color: var(--tomato);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+  }
+
+  &:hover::before {
+    left: 100%;
   }
 
   &:focus-visible {
     color: var(--tomato);
-    text-decoration: underline;
+    outline: 2px solid var(--tomato);
+    outline-offset: 2px;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 
 @include m.small {
-  .buttons>a {
-    font-size: .9rem;
+  .buttons > a {
+    font-size: 0.9rem;
+    padding: 10px 20px;
   }
 }
 
-.buttons>button {
+.buttons > button {
   -webkit-tap-highlight-color: transparent;
   outline: none;
   border: none;
   padding: 16px 48px;
-  border-radius: 4px;
-  background-color: var(--dark-tomato);
-  border: solid 2px var(--dark-tomato);
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--dark-tomato), var(--tomato));
+  border: 2px solid transparent;
   color: var(--white);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
-  transition: background-color .2s, color .2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
 
-  &:hover,
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  &:hover {
+    background: linear-gradient(135deg, var(--tomato), var(--dark-tomato));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(231, 76, 60, 0.4);
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+
   &:focus-visible {
-    background-color: var(--white);
-    color: var(--dark-tomato);
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
   }
 }
 
 @include m.medium {
-  .buttons>button {
+  .buttons > button {
+    padding: 14px 36px;
+    font-size: 0.95rem;
+  }
+}
+
+@include m.small {
+  .buttons > button {
     padding: 12px 30px;
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 }

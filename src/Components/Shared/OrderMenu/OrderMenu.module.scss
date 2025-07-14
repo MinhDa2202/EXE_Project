@@ -1,9 +1,10 @@
 @use "src/Styles/mixins" as m;
 
-.userMenu {
+.orderMenu {
   position: absolute;
-  left: -191px;
-  min-width: 224px;
+  left: auto;
+  right: 0;
+  min-width: 125px;
   border-radius: 4px;
   z-index: 30;
   background: rgba(0, 0, 0, 0.8);
@@ -21,14 +22,14 @@
   }
 }
 
-.userMenu>a {
+.orderMenu>a {
   -webkit-tap-highlight-color: transparent;
   outline: none;
   border: none;
   display: flex;
   align-items: center;
   user-select: none;
-  padding: 12px;
+  padding: 9px 4px;
 
   &:hover,
   &:focus {
@@ -36,14 +37,14 @@
   }
 }
 
-.userMenu>a>svg {
+.orderMenu>a>svg {
   fill: var(--white);
   width: 20px;
   height: 20px;
 }
 
-.userMenu>a:hover svg,
-.userMenu>a:focus svg {
+.orderMenu>a:hover svg,
+.orderMenu>a:focus svg {
   fill: var(--black);
 
   & path {
@@ -55,18 +56,18 @@
   }
 }
 
-.userMenu>a>span {
+.orderMenu>a>span {
   color: var(--white);
   font-size: .85rem;
   margin-inline-start: 8px;
 }
 
-.userMenu>a:hover span,
-.userMenu>a:focus span {
+.orderMenu>a:hover span,
+.orderMenu>a:focus span {
   color: var(--black);
 }
 
 // Arabic styles
-[lang=ar] .userMenu {
+[lang=ar] .orderMenu {
   direction: rtl;
 }

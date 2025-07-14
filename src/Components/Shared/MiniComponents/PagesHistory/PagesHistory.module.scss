@@ -2,7 +2,9 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  row-gap: 10px;
+  row-gap: 3px;
+  padding-top: 2rem; /* Add padding top */
+  padding-bottom: 0.5px; /* Reduce padding bottom */
 }
 
 .page {

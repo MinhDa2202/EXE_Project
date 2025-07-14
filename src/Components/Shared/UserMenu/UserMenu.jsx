@@ -30,8 +30,8 @@ const UserMenu = ({ isActive, toggler }) => {
       <NavLink to="/order" aria-label="Order page">
         <UserMenuItemWithCount
           props={{
-            iconName: "cart",
-            title: t("userMenuItems.cart"),
+            iconName: "bag",
+            title: t("accountPage.accountMenuSection.myOrders"),
             countLength: orderProductsLength,
           }}
         />

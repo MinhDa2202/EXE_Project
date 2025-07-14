@@ -27,7 +27,6 @@ export const pagesRequireSignIn = [
   "/checkout",
   "/profile",
   "/wishlist",
-  "/cart",
   "/order",
 ];
 export const PRODUCT_SIZES = [
@@ -70,17 +69,14 @@ export const DEFAULT_LOGIN_DATA = {
 export const NAV_PROPS = {
   signIn: {
     showHeart: true,
-    showCart: true,
     showUser: true,
   },
   notSignIn: {
     showHeart: false,
-    showCart: false,
     showUser: false,
   },
   signUpPage: {
     showHeart: false,
-    showCart: false,
     showUser: false,
   },
 };
@@ -89,6 +85,5 @@ export const arraysToEmpty = [
   "favoritesProducts",
   "searchProducts",
   "orderProducts",
-  "cartProducts",
   "wishList",
 ];

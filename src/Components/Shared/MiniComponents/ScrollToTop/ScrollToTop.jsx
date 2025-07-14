@@ -29,11 +29,6 @@ const ScrollToTop = () => {
       aria-label="Scroll to top button"
     >
       <SvgIcon name="arrowUp2" />
-      <ToolTip
-        top="50%"
-        left={leftToolTipPos}
-        content={t("tooltips.scrollToTop")}
-      />
     </button>
   );
 };

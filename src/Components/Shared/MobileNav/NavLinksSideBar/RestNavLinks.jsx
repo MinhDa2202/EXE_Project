@@ -7,12 +7,11 @@ import IconWithCountAndLabel from "../../NavTools/IconWithCountAndLabel/IconWith
 const RestNavLinks = () => {
   const { isMobileMenuActive } = useSelector((state) => state.global);
   const { loginInfo } = useSelector((state) => state.user);
-  const { favoritesProducts, orderProducts, cartProducts, wishList } =
+  const { favoritesProducts, orderProducts, wishList } =
     useSelector((state) => state.products);
   const { t } = useTranslation();
 
   const restMobileNavData = getRestMobileNavData({
-    cartProducts,
     orderProducts,
     favoritesProducts,
     wishList,

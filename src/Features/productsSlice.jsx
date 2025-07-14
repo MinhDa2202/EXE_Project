@@ -9,7 +9,6 @@ const initialState = productsDataLocal
       favoritesProducts: [],
       searchProducts: [],
       orderProducts: [],
-      cartProducts: [],
       wishList: [],
       productQuantity: 1,
       selectedProduct: null,

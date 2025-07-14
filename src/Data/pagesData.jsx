@@ -12,10 +12,6 @@ export const PAGE_SECTIONS_ID = [
     path: "/details/",
   },
   {
-    id: "cart-page",
-    path: "/cart",
-  },
-  {
     id: "wishlist-page",
     path: "/wishlist",
   },

@@ -21,8 +21,8 @@
   },
   "navTools": {
     "favorite": "Favorites",
-    "cart": "Cart",
-    "userMenu": "User menu"
+    "userMenu": "User menu",
+    "orderMenu": "Order menu"
   },
   "homeSlider": {
     "title": "Up to 30% off Voucher"
@@ -189,7 +189,6 @@
       "account": "Account",
       "myAccount": "My Account",
       "loginRegister": "Login / Register",
-      "cart": "Cart",
       "wishlist": "Wishlist",
       "shop": "Shop"
     },
@@ -276,8 +275,8 @@
   "aboutPage": {
     "heroSection": {
       "heading": "Our Story",
-      "paragraphOne": "Launched in 2024, Recloop Mart is Iraq's premier online shopping marketplace, serving customers nationwide. With a strong focus on personalized marketing, advanced data analytics, and comprehensive service solutions, Recloop Mart supports over 10,500 sellers and 300 brands, reaching 3 million customers across the country.",
-      "paragraphTwo": "Recloop Mart offers an extensive selection of over 1 million products, constantly expanding to meet the diverse needs of its customers. From electronics to fashion, and home goods to beauty products, Recloop Mart provides a wide array of categories to choose from.",
+      "paragraphOne": "Launched in 2025, Recloop Mart is Vietnam’s leading online platform for buying and selling second-hand tech products. With a mission to connect the tech-loving community, Recloop Mart creates a transparent, secure, and easy-to-use environment where buyers and sellers can meet and negotiate freely. Recloop Mart does not handle payments or shipping, serving solely as a trusted bridge between both parties.",
+      "paragraphTwo": "Recloop Mart features thousands of pre-owned tech items, ranging from smartphones, laptops, and cameras to computer components. With a well-organized listing system, efficient search tools, and transparent user reviews, Recloop Mart supports thousands of monthly visits—helping users save money and contribute to environmental sustainability through tech reuse.",
       "imageAlt": "two young women happy with shopping"
     },
     "cardInfo": {
@@ -475,6 +474,10 @@
     "reviews": "My Reviews",
     "wishlist": "Wishlist",
     "logout": "Logout"
+  },
+  "orderMenuItems": {
+    "donMua": "Purchase Order",
+    "donBan": "Sales Order"
   },
   "toastAlert": {
     "accountInfoUpdated": "Account's information updated.",

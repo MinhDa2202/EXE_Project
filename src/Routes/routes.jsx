@@ -4,6 +4,8 @@ import Cart from "../Components/Cart/Cart";
 import ChatPage from "../Components/ChatPage/ChatPage";
 // import CheckoutPage from "../Components/CheckoutPage/CheckoutPage";
 import Contact from "../Components/Contact/Contact";
+import DonBan from "../Components/DonBan/DonBan";
+import DonMua from "../Components/DonMua/DonMua";
 import FavoritePage from "../Components/FavoritePage/FavoritePage";
 import Home from "../Components/Home/Home";
 import LogIn from "../Components/LogIn/LogIn";
@@ -25,7 +27,6 @@ export const ROUTES_CONFIG = [
   { path: "/products", element: <ProductsPage /> },
   { path: "/favorites", element: <FavoritePage /> },
   { path: "/wishlist", element: <WishList /> },
-  { path: "/cart", element: <Cart /> },
   // { path: "/checkout", element: <CheckoutPage /> },
   { path: "/order", element: <OrderPage /> },
   { path: "/signup", element: <SignUp /> },

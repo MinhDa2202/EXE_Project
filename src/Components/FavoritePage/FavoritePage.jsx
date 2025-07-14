@@ -30,7 +30,7 @@ const FavoritePage = () => {
             <FavoriteProducts />
           </section>
 
-          <ForYouSection />
+          {/* <ForYouSection /> */}
         </main>
       </div>
     </>

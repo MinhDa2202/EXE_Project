@@ -1,6 +1,7 @@
 import About from "../Components/About/About";
 import AccountPage from "../Components/AccountPage/AccountPage";
 import Cart from "../Components/Cart/Cart";
+import ChatPage from "../Components/ChatPage/ChatPage";
 // import CheckoutPage from "../Components/CheckoutPage/CheckoutPage";
 import Contact from "../Components/Contact/Contact";
 import FavoritePage from "../Components/FavoritePage/FavoritePage";
@@ -31,5 +32,6 @@ export const ROUTES_CONFIG = [
   { path: "/login", element: <LogIn /> },
   { path: "/profile", element: <AccountPage /> },
   { path: "/search", element: <SearchPage /> },
+  { path: "/chat", element: <ChatPage /> },
   { path: "*", element: <NotFoundPage /> },
 ];

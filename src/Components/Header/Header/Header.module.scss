@@ -65,15 +65,15 @@
   border-radius: 8px;
 
   &:hover {
-    color: var(--orange-degree2);
-    background-color: rgba(255, 165, 0, 0.05);
+    color: var(--primary-purple);
+    background-color: rgba(102, 126, 234, 0.05);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--orange-degree2);
+    outline: 2px solid var(--primary-purple);
     outline-offset: 2px;
-    color: var(--orange-degree2);
-    background-color: rgba(255, 165, 0, 0.1);
+    color: var(--primary-purple);
+    background-color: rgba(102, 126, 234, 0.1);
   }
 }
 
@@ -84,7 +84,7 @@
 
 .container > h1:has(:hover)::first-letter,
 .container > h1:has(:focus)::first-letter {
-  color: var(--orange-degree2);
+  color: var(--primary-purple);
 }
 
 .container h1 > a::before {
@@ -94,7 +94,7 @@
   bottom: 2px;
   width: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--orange-degree2), #ff8c00);
+  background: linear-gradient(90deg, var(--primary-purple), var(--secondary-purple));
   transition: width 0.4s ease;
   border-radius: 2px;
 }

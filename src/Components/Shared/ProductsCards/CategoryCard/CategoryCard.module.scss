@@ -14,13 +14,15 @@
   transition: background-color .2s;
 
   &:not(:focus-visible):hover {
-    background-color: var(--tomato);
-    border-color: var(--tomato);
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+    border-color: var(--primary-purple);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
   }
 
   &:focus-visible {
-    background-color: #db444407;
-    outline-color: var(--tomato);
+    background-color: rgba(102, 126, 234, 0.05);
+    outline-color: var(--primary-purple);
   }
 }
 
@@ -52,13 +54,13 @@
 
 .card:focus-visible svg[data-fill-hover] {
   & :where(path, line) {
-    fill: var(--tomato);
+    fill: var(--primary-purple);
   }
 }
 
 .card:focus-visible svg[data-stroke-hover] {
   & :where(path, line) {
-    stroke: var(--tomato);
+    stroke: var(--primary-purple);
   }
 }
 
@@ -72,5 +74,5 @@
 }
 
 .card:focus-visible span {
-  color: var(--tomato);
+  color: var(--primary-purple);
 }

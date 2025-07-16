@@ -50,26 +50,30 @@
 }
 
 .layerContent .discount {
-  background: var(--dark-tomato);
-  color: var(--secondary-white);
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+  color: var(--white);
   width: fit-content;
   padding: 4px 12px;
   @include m.center-x-y;
   gap: 10px;
-  border-radius: 4px;
+  border-radius: 6px;
   user-select: none;
   font-size: .75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .layerContent .new {
-  background-color: var(--green);
+  background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-purple) 100%);
   color: var(--white);
   width: 51px;
   height: 26px;
   padding: 4px 12px;
-  border-radius: 4px;
+  border-radius: 6px;
   user-select: none;
   font-size: .75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 
   &.hide {
     display: none;

@@ -42,13 +42,13 @@
   padding: 20px;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 12px;
-  border: 1px solid rgba(231, 76, 60, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.1);
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(231, 76, 60, 0.2);
+    border-color: rgba(102, 126, 234, 0.2);
   }
 
   &:last-child {
@@ -59,10 +59,10 @@
 .section > h2 {
   font-weight: 600;
   font-size: 1.1rem;
-  color: var(--dark-tomato);
+  color: var(--primary-purple);
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 2px solid rgba(231, 76, 60, 0.1);
+  border-bottom: 2px solid rgba(102, 126, 234, 0.1);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -72,7 +72,7 @@
   content: "";
   width: 4px;
   height: 20px;
-  background: linear-gradient(135deg, var(--dark-tomato), var(--tomato));
+  background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
   border-radius: 2px;
 }
 
@@ -109,15 +109,15 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
     transition: left 0.5s ease;
   }
 
   &:hover {
-    color: var(--dark-tomato);
-    background: rgba(231, 76, 60, 0.05);
+    color: var(--primary-purple);
+    background: rgba(102, 126, 234, 0.05);
     transform: translateX(4px);
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.15);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
   }
 
   &:hover::before {
@@ -126,23 +126,23 @@
 
   &:not(:focus-visible)[class=active] {
     color: var(--white);
-    background: linear-gradient(135deg, var(--dark-tomato), var(--tomato));
-    box-shadow: 0 4px 16px rgba(231, 76, 60, 0.3);
+    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
     transform: translateX(4px);
 
     &:hover {
       color: var(--white);
-      background: linear-gradient(135deg, var(--tomato), var(--dark-tomato));
+      background: linear-gradient(135deg, var(--secondary-purple), var(--primary-purple));
       transform: translateX(6px);
     }
   }
 
   &:focus-visible {
     text-decoration: underline;
-    color: var(--orange-degree2);
-    outline: 2px solid var(--orange-degree2);
+    color: var(--primary-purple);
+    outline: 2px solid var(--primary-purple);
     outline-offset: 2px;
-    background: rgba(255, 165, 0, 0.1);
+    background: rgba(102, 126, 234, 0.1);
   }
 }
 

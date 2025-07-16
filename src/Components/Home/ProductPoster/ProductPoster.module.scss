@@ -28,7 +28,7 @@
 
 .content>span {
   font-weight: 600;
-  color: #00FF66;
+  color: var(--light-purple);
 }
 
 .content>h2 {
@@ -60,24 +60,28 @@
 .content>a {
   -webkit-tap-highlight-color: transparent;
   padding: 16px 48px;
-  border-radius: 4px;
-  background-color: var(--green);
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
   color: var(--white);
   cursor: pointer;
   outline: none;
   border: none;
   outline: solid 2px transparent;
   outline-offset: -2px;
-  transition: background-color .2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  font-weight: 600;
 
   &:hover {
-    background: #00c04d;
+    background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-purple) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
   }
 
   &:focus-visible {
-    background: transparent;
-    outline-color: #00c04d;
-    color: #00FF66;
+    background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-purple) 100%);
+    outline-color: var(--primary-purple);
+    color: var(--white);
   }
 }
 

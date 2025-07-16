@@ -44,14 +44,14 @@
   }
 
   &[class="active"] {
-    color: var(--orange-degree2);
-    background-color: rgba(255, 165, 0, 0.1);
+    color: var(--primary-purple);
+    background-color: rgba(102, 126, 234, 0.1);
     font-weight: 600;
   }
 
   &[class="active"]::before {
     opacity: 1;
-    background-color: var(--orange-degree2);
+    background-color: var(--primary-purple);
   }
 
   &:hover:not([class="active"]) {
@@ -92,26 +92,26 @@
   margin-left: 8px;
   
   .signUpLink {
-    background: linear-gradient(135deg, var(--orange-degree2), #ff8c00);
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
     color: white !important;
     font-weight: 600;
     padding: 10px 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(255, 165, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
     transition: all 0.3s ease;
     border: none;
 
     &:hover {
-      background: linear-gradient(135deg, #ff8c00, var(--orange-degree2));
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
+      background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-purple) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
       color: white !important;
     }
 
     &:focus-visible {
-      outline: 3px solid rgba(255, 165, 0, 0.3);
+      outline: 3px solid rgba(102, 126, 234, 0.3);
       outline-offset: 2px;
-      background: linear-gradient(135deg, #ff8c00, var(--orange-degree2));
+      background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-purple) 100%);
       color: white !important;
     }
 

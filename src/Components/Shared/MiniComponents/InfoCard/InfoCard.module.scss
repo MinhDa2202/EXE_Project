@@ -16,9 +16,11 @@
 
   &:hover,
   &:focus-visible {
-    background-color: var(--dark-tomato);
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
     color: var(--white);
-    border-color: var(--dark-tomato);
+    border-color: var(--primary-purple);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
   }
 }
 

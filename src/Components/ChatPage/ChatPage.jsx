@@ -9,10 +9,10 @@ const ChatPage = () => {
   
   // Lấy thông tin từ navigation state
   const { productData, sellerId, sellerName } = location.state || {};
-  // console.log("🔥 productData trong ChatPage:", productData);
-  // console.log("🔥 ImageUrls:", productData?.ImageUrls);
-
-
+  
+  // Theme state
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +21,19 @@ const ChatPage = () => {
 
   // API Base URL
   const API_BASE_URL = 'https://localhost:7235';
+
+  // Detect system theme preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDarkMode(mediaQuery.matches);
+
+    const handleChange = (e) => {
+      setIsDarkMode(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   useEffect(() => {
     // Load messages khi component mount
@@ -115,8 +128,6 @@ const ChatPage = () => {
         productId: productData?.id,
         content: newMessage.trim()
       };
-//       console.log('sellerId:', sellerId);
-// console.log('productData:', productData);
 
       console.log("Sending message:", messageData);
 
@@ -143,30 +154,10 @@ const ChatPage = () => {
     } finally {
       setIsLoading(false);
     }
-  }; // Closing brace for sendMessage
+  };
 
   const deleteMessage = async (messageId) => {
-    // Placeholder for delete message functionality
     console.log(`Deleting message with ID: ${messageId}`);
-    // In a real application, you would make an API call here
-    // try {
-    //   const token = localStorage.getItem('token');
-    //   const response = await fetch(`${API_BASE_URL}/api/Messenger/${messageId}`, {
-    //     method: 'DELETE',
-    //     headers: {
-    //       'Authorization': `Bearer ${token}`
-    //     }
-    //   });
-    //   if (response.ok) {
-    //     await loadMessages(); // Reload messages after deletion
-    //   } else {
-    //     console.error('Failed to delete message:', response.status);
-    //     alert('Không thể xóa tin nhắn.');
-    //   }
-    // } catch (error) {
-    //   console.error('Error deleting message:', error);
-    //   alert('Đã xảy ra lỗi khi xóa tin nhắn.');
-    // }
   };
 
   const scrollToBottom = () => {
@@ -186,11 +177,18 @@ const ChatPage = () => {
   };
 
   return (
-    <div className={s.chatPage}>
+    <div className={`${s.chatPage} ${isDarkMode ? s.darkMode : s.lightMode}`}>
       {/* Left Sidebar - Contacts */}
       <div className={s.sidebar}>
         <div className={s.sidebarHeader}>
           <h2>Messenger</h2>
+          <button 
+            className={s.themeToggle}
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            title={isDarkMode ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'}
+          >
+            {isDarkMode ? '☀️' : '🌙'}
+          </button>
         </div>
         
         <div className={s.searchBox}>
@@ -260,7 +258,6 @@ const ChatPage = () => {
                   />
                   <div>
                     <h4>{productData.Title}</h4>
-                    {/* <p className={s.productPrice}>{productData.price}</p> */}
                   </div>
                 </div>
               )}

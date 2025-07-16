@@ -14,12 +14,13 @@
   }
 
   &.active {
-    background-color: var(--dark-tomato);
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
     fill: var(--white);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   }
 }
 

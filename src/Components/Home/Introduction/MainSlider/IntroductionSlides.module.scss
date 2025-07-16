@@ -93,16 +93,27 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 2px;
+  padding: 12px 24px;
   font-size: 1rem;
-  color: var(--secondary-white);
+  color: var(--white);
   width: fit-content;
   position: relative;
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  border: none;
+  outline: none;
+
+  &:hover {
+    background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-purple) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
 
   &:hover::before {
-    height: calc(100% + 10px);
-    opacity: .3;
-    transition: height .2s, opacity .2s;
+    opacity: 0;
   }
 }
 
@@ -112,25 +123,15 @@
   }
 }
 
-.shopNow::before {
-  background-color: var(--red);
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 100%;
-  height: 2px;
-  background-color: var(--secondary-white);
-  transition: height .3s, opacity .2s .2s;
-}
+
 
 .shopNow svg {
-  fill: var(--secondary-white);
+  fill: var(--white);
   width: 20px;
   height: 20px;
-  margin-left: 12px;
-  margin-top: 6px;
-  transform: scaleY(1.3);
+  margin-left: 8px;
+  margin-top: 0;
+  transform: scaleY(1);
 }
 
 @include m.small {

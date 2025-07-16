@@ -11,7 +11,7 @@
 
 ::selection {
   color: var(--black);
-  background-color: rgba(255, 255, 0, .8);
+  background-color: rgba(255, 255, 0, 0.8);
 }
 
 html {
@@ -20,8 +20,9 @@ html {
 }
 
 body {
-  background-color: var(--website-bg);
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   font-family: "Inter", sans-serif;
+  min-height: 100vh;
 }
 
 body::-webkit-scrollbar {
@@ -69,7 +70,9 @@ button {
   outline: none;
 }
 
-button {
+// Search input styling
+#search-input,
+input[type="text"] button {
   user-select: none;
   cursor: pointer;
 }
@@ -105,7 +108,7 @@ main {
   outline: none;
   border-radius: 6px;
   z-index: 100;
-  transition: left .4s ease;
+  transition: left 0.4s ease;
 
   &:focus {
     left: 0;
@@ -122,37 +125,37 @@ main {
   color: var(--white);
   border-radius: 5px;
   padding: 0 10px;
-  font-size: .9rem;
+  font-size: 0.9rem;
   user-select: none;
   translate: -50% -50%;
   opacity: 0;
   z-index: 9;
   pointer-events: none;
   @include m.center-x-y;
-  transition: opacity .1s ease;
+  transition: opacity 0.1s ease;
 }
 
-*:hover+[data-is-tooltip=true],
-*:hover>[data-is-tooltip=true] {
+*:hover + [data-is-tooltip="true"],
+*:hover > [data-is-tooltip="true"] {
   opacity: 1;
   pointer-events: all;
 }
 
 // Arabic styles
-[lang=ar] * {
+[lang="ar"] * {
   font-family: "Rubik";
 }
 
-[lang=ar] :where(h2, b) {
+[lang="ar"] :where(h2, b) {
   letter-spacing: -1px !important;
 }
 
-[lang=ar] p {
+[lang="ar"] p {
   font-size: 1.1rem;
   line-height: 1.5;
 }
 
-[lang=ar] .skip-content {
+[lang="ar"] .skip-content {
   left: auto;
   right: -150%;
 

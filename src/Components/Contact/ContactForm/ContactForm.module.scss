@@ -78,7 +78,7 @@
 
 .input:has([required])>label::after {
   content: "*";
-  color: var(--tomato);
+  color: var(--primary-purple);
 }
 
 .input>input,
@@ -135,11 +135,11 @@
   color: var(--black);
 
   &:hover {
-    color: var(--tomato);
+    color: var(--primary-purple);
   }
 
   &:focus-visible {
-    color: var(--tomato);
+    color: var(--primary-purple);
     text-decoration: underline;
   }
 }
@@ -153,23 +153,31 @@
 
 .buttons>button[type=submit] {
   padding: 16px 48px;
-  border-radius: 4px;
-  background-color: var(--dark-tomato);
-  border: solid 2px var(--dark-tomato);
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+  border: solid 2px transparent;
   color: var(--white);
-  font-weight: 500;
-  transition: background-color .1s, color .1s;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 
   &:focus-visible {
-    transition: background-color .1s, color .1s, var(--outline-transition);
-    border: 2px dashed var(--dark-tomato);
-    background-color: var(--white);
-    color: var(--dark-tomato);
+    transition: all 0.3s ease, var(--outline-transition);
+    outline: 2px solid var(--primary-purple);
+    outline-offset: 2px;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
   }
 
   &:hover {
-    background-color: var(--white);
-    color: var(--dark-tomato);
+    background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-purple) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   }
 }
 

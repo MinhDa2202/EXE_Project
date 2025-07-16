@@ -1,7 +1,7 @@
 @use "src/Styles/mixins" as m;
 
 .sectionTitle .event {
-  color: var(--dark-tomato);
+  color: var(--dark-purple);
   margin-inline-start: 36px;
   position: relative;
   margin-bottom: 30px;
@@ -28,7 +28,7 @@
   transform: translateY(-50%);
   width: 20px;
   height: 40px;
-  background: var(--dark-tomato);
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
   border-radius: 4px;
 }
 

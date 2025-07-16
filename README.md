@@ -2,7 +2,7 @@
   <img src="https://github.com/Moamal-2000/e-commerce/assets/103026211/935f9fd0-1cfa-4164-9947-3ce38a8f1484" alt="E-Commerce Website Preview">
 </p>
 
-<h1 align="center">E-Commerce Website</h1>
+<h1 align="center">Recloop Mart</h1>
 
 <p align="center">
   Designed by: <a href="https://dribbble.com/mdrimel15" target="_blank">mdrimel15</a>, 
@@ -14,7 +14,7 @@
 **1. Clone the repository:**
 
 ```bash
-git clone git@github.com:Moamal-2000/e-commerce.git
+https://github.com/MinhDa2202/EXE_Project.git
 ```
 
 **2. Install dependencies:**

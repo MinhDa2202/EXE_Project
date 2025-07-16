@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1050;
   padding: 1rem;
 }
 
@@ -20,7 +20,9 @@
   width: 100%;
   max-width: 600px;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   animation: modalSlideIn 0.3s ease-out;
 
@@ -70,6 +72,8 @@
 
 .form {
   padding: 2rem;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .formGroup {

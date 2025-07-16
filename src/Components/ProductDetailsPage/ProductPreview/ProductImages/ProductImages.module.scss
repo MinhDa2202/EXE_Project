@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   aspect-ratio: 1/1;
-  width: 125px;
+  width: 100px;
   cursor: pointer;
   border: solid 1px var(--very-light-gray);
 
@@ -24,12 +24,6 @@
   }
 }
 
-@media (max-width: 1400px) {
-  .imgHolder {
-    width: calc((25% - 14px) + (14px / 4));
-    height: auto;
-  }
-}
 
 .imgHolder img {
   aspect-ratio: 1/1;

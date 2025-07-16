@@ -13,12 +13,16 @@ const initialState = productsDataLocal
       productQuantity: 1,
       selectedProduct: null,
       removeOrderProduct: "",
+      refetchFlag: false,
     };
 
 const productsSlice = createSlice({
   initialState,
   name: "productsSlice",
   reducers: {
+    triggerRefetch: (state) => {
+      state.refetchFlag = !state.refetchFlag;
+    },
     updateProductsState: (state, { payload: { key, value } }) => {
       state[key] = value;
     },
@@ -46,6 +50,7 @@ const productsSlice = createSlice({
 });
 
 export const {
+  triggerRefetch,
   updateProductsState,
   addToArray,
   removeById,

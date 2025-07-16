@@ -2,21 +2,8 @@
 
 .otherImages {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-  height: 540px;
-}
-
-@media (max-width: 1400px) {
-  .otherImages {
-    height: auto;
-    max-width: 500px;
-    flex-direction: row;
-  }
-}
-
-@include m.small {
-  .otherImages {
-    max-width: 100%;
-  }
+  flex-direction: row;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }

@@ -2,22 +2,16 @@
 
 .images {
   display: flex;
-  gap: 30px;
+  flex-direction: column-reverse;
+  gap: 20px;
   user-select: none;
 }
 
-@media (max-width: 1400px) {
-  .images {
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-  }
-}
-
 .previewImgHolder {
-  width: 400px; /* Giảm chiều rộng */
-  height: 450px; /* Giảm chiều cao */
-  max-height: 450px;
-  min-height: 450px;
+  width: 100%;
+  position: relative;
+  height: 0;
+  padding-top: 100%; /* This creates a 1:1 aspect ratio */
   border-radius: 4px;
   flex: 1;
   background-color: var(--very-light-gray2);
@@ -29,12 +23,6 @@
 }
 
 @include m.large {
-  .previewImgHolder {
-    height: 400px; /* Giảm chiều cao cho màn hình lớn */
-    max-height: 400px;
-    min-height: 400px;
-    @include m.center-x-y;
-  }
 }
 
 @include m.small {
@@ -45,14 +33,14 @@
 }
 
 @media (max-width: 480px) {
-  .previewImgHolder {
-    height: 350px; /* Giảm chiều cao cho màn hình di động */
-    max-height: 350px;
-    min-height: 350px;
-  }
 }
 
 .previewImgHolder>img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: var(--very-light-gray2);
   border-radius: inherit;
   object-fit: contain;

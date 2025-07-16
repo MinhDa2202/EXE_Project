@@ -1,6 +1,6 @@
 // src/Hooks/App/useProducts.jsx
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateLoadingState } from "src/Features/loadingSlice";
 import { setAfterDiscountKey, setFormattedPrice } from "src/Functions/helper";
 
@@ -8,6 +8,7 @@ const useProducts = (loadingKey = "loadingProducts") => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
+  const { refetchFlag } = useSelector((state) => state.products);
 
   // Helper function để fetch single product by ID hoặc name
   const fetchSingleProduct = async (identifier, searchBy = "name") => {
@@ -119,7 +120,7 @@ const useProducts = (loadingKey = "loadingProducts") => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [refetchFlag]);
 
   return { products, error, refetch: fetchProducts, fetchSingleProduct };
 };

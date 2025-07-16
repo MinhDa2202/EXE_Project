@@ -1,6 +1,6 @@
 import About from "../Components/About/About";
 import AccountPage from "../Components/AccountPage/AccountPage";
-import Cart from "../Components/Cart/Cart";
+// import Cart from "../Components/Cart/Cart";
 import ChatPage from "../Components/ChatPage/ChatPage";
 // import CheckoutPage from "../Components/CheckoutPage/CheckoutPage";
 import Contact from "../Components/Contact/Contact";

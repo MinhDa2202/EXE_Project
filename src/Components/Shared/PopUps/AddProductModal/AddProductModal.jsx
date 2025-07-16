@@ -245,7 +245,7 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
   // Show login required message
   if (!token) {
     return (
-      <div className={s.modalOverlay} onClick={onClose}>
+      <div className={s.modalOverlay}>
         <div className={s.modalContent} onClick={(e) => e.stopPropagation()}>
           <div className={s.modalHeader}>
             <h2>{t("auth.loginRequired", "Yêu cầu đăng nhập")}</h2>
@@ -267,7 +267,7 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
   }
 
   return (
-    <div className={s.modalOverlay} onClick={onClose}>
+    <div className={s.modalOverlay}>
       <div className={s.modalContent} onClick={(e) => e.stopPropagation()}>
         <div className={s.modalHeader}>
           <h2>{t("products.addProduct", "Thêm sản phẩm mới")}</h2>

@@ -2,7 +2,7 @@
 
 .detailsSection {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.9fr 1.1fr;
   gap: 2rem; /* Giảm khoảng cách */
   margin: var(--page-margin);
   min-height: 500px; /* Giảm chiều cao tối thiểu */

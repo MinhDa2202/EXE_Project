@@ -29,7 +29,7 @@ const WishList = () => {
             <WishProducts />
           </section>
 
-          <ForYouSection />
+          {/* <ForYouSection /> */}
         </main>
       </div>
     </>

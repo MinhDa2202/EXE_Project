@@ -2,10 +2,9 @@ import ProductCardDetailsIcon from "./ProductCardDetailsIcon";
 import ProductCardFavIcon from "./ProductCardFavIcon";
 import s from "./ProductCardIcons.module.scss";
 import ProductCardRemoveIcon from "./ProductCardRemoveIcon";
-import ProductCardWishListIcon from "./ProductCardWishListIcon";
 
 const ProductCardIcons = ({
-  iconsData: { showFavIcon, showDetailsIcon, showRemoveIcon, showWishList },
+  iconsData: { showFavIcon, showDetailsIcon, showRemoveIcon },
   productId,
   navigateToProductDetails,
   product,
@@ -27,9 +26,6 @@ const ProductCardIcons = ({
         <ProductCardRemoveIcon productId={productId} removeFrom={removeFrom} />
       )}
 
-      {showWishList && (
-        <ProductCardWishListIcon product={product} productId={productId} />
-      )}
     </div>
   );
 };

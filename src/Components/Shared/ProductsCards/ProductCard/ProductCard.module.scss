@@ -3,37 +3,59 @@
 .card {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  min-width: 256px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #f1f3f4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  min-width: 280px;
+  max-width: 320px;
   scroll-snap-align: start;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    border-color: #e2e8f0;
+  }
+
+  &:active {
+    transform: translateY(-2px);
+  }
 }
 
 .productImg {
-  border-radius: 4px;
-  background: var(--very-light-gray2);
+  border-radius: 16px 16px 0 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   width: 100%;
-  height: 250px;
+  height: 280px;
   @include m.center-x-y;
   user-select: none;
   position: relative;
+  overflow: hidden;
 }
 
 .imgHolder {
   position: relative;
   z-index: 6;
-  transition: .4s scale;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .productImg:hover .imgHolder {
-  scale: 1.1;
+  transform: scale(1.05);
 }
 
 .imgHolder img {
-  width: 172px;
-  height: 152px;
-  object-fit: contain;
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
   cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.4s ease;
 }
 
 .layerContent {
@@ -42,38 +64,47 @@
   top: 0;
   width: 100%;
   height: 100%;
-  padding: 14px;
+  padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   overflow: hidden;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, transparent 30%, transparent 70%, rgba(0, 0, 0, 0.05) 100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.card:hover .layerContent {
+  opacity: 1;
 }
 
 .layerContent .discount {
-  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
-  color: var(--white);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff;
   width: fit-content;
-  padding: 4px 12px;
+  padding: 6px 12px;
   @include m.center-x-y;
-  gap: 10px;
-  border-radius: 6px;
+  gap: 4px;
+  border-radius: 20px;
   user-select: none;
-  font-size: .75rem;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .layerContent .new {
-  background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-purple) 100%);
-  color: var(--white);
-  width: 51px;
-  height: 26px;
-  padding: 4px 12px;
-  border-radius: 6px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 20px;
   user-select: none;
-  font-size: .75rem;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
   &.hide {
     display: none;
@@ -86,35 +117,33 @@
   z-index: -1;
 }
 
-.card:hover [data-product-icons-hover],
-.card.noHover [data-product-icons-hover] {
-  opacity: 1;
-  transform: translateX(0);
-  transition: transform .4s .1s, opacity .2s .2s;
-}
-
+// Mobile responsive styles
 @include m.small {
-  .card [data-product-icons-hover] {
-    opacity: 1;
-    transform: translateX(0);
-    transition: transform .4s .1s, opacity .2s .2s;
+  .card {
+    min-width: 260px;
+    max-width: 280px;
+  }
+  
+  .productImg {
+    height: 240px;
+  }
+  
+  .imgHolder img {
+    height: 200px;
   }
 }
 
-.card:has(:focus-visible) [data-product-icons-hover] {
-  opacity: 1;
-  transform: translateX(0);
-  transition: transform 0, opacity 0;
-}
-
-.card:hover [data-add-to-cart-button],
-.card.noHover [data-add-to-cart-button] {
-  transform: translateY(0);
-}
-
-@include m.small {
-  .card [data-add-to-cart-button] {
-    transform: translateY(0);
+// Error card styles
+.errorCard {
+  background: #fed7d7;
+  border-color: #fc8181;
+  min-height: 200px;
+  
+  .errorMessage {
+    padding: 20px;
+    text-align: center;
+    color: #742a2a;
+    font-weight: 600;
   }
 }
 

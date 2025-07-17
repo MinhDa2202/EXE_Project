@@ -78,6 +78,7 @@ const useProducts = (loadingKey = "loadingProducts") => {
         stock: product.stock || product.Stock || product.stockQuantity || 0,
         brand: product.brand || product.Brand || product.brandName || "",
         tags: product.tags || product.Tags || product.productTags || [],
+        Condition: product.condition || product.Condition || product.productCondition,
       };
 
       // Tính toán giá sau discount nếu chưa có

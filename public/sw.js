@@ -1,13 +1,17 @@
 "use strict";
 
-import { getTranslationPaths } from "../src/Functions/helper";
-
 // Variables
 const CACHE_NAME = "Recloop Mart";
 const ASSETS = [
   "/",
   "/index.html",
-  ...getTranslationPaths(["en", "ar", "fr", "hl", "hu", "ja", "ru"]),
+  "/locale/ar/translation.json",
+  "/locale/en/translation.json",
+  "/locale/fr/translation.json",
+  "/locale/hi/translation.json",
+  "/locale/hu/translation.json",
+  "/locale/ja/translation.json",
+  "/locale/ru/translation.json",
 ];
 
 // Functions

@@ -14,7 +14,7 @@ const ProductCard = ({
     showDetailsIcon: true,
     showRemoveIcon: false,
     showNewText: true,
-    showWishList: true,
+    showWishList: false,
     showColors: false,
   },
   removeFrom,
@@ -91,7 +91,7 @@ function navigateToProductDetails() {
   };
 
   return (
-    <div className={`${s.card} ${noHoverClass}`}>
+    <div className={`${s.card} ${noHoverClass}`} data-product-card>
       <div className={s.productImg}>
         <div className={s.imgHolder}>
           <img

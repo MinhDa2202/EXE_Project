@@ -23,6 +23,8 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [uploadProgress, setUploadProgress] = useState("");
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,10 +32,39 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
       ...prev,
       [name]: value
     }));
+    
+    // Clear validation error for this field
+    if (validationErrors[name]) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: ""
+      }));
+    }
   };
 
-  const handleFileSelect = (e) => {
-    const files = Array.from(e.target.files);
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'title':
+        return value.trim() ? "" : "Tiêu đề là bắt buộc";
+      case 'price':
+        return value && parseFloat(value) > 0 ? "" : "Giá phải lớn hơn 0";
+      default:
+        return "";
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    if (error) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: error
+      }));
+    }
+  };
+
+  const processFiles = (files) => {
     if (files.length === 0) return;
 
     // Validate file types
@@ -64,6 +95,28 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
       name: file.name
     }));
     setImagePreviews(previews);
+  };
+
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files);
+    processFiles(files);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const files = Array.from(e.dataTransfer.files);
+    processFiles(files);
   };
 
   const removeImage = (index) => {
@@ -277,121 +330,153 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
         </div>
 
         <form className={s.form} onSubmit={handleSubmit}>
-          <div className={s.formGroup}>
-            <label htmlFor="title">
-              {t("products.title", "Tiêu đề")} <span className={s.required}>*</span>
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              required
-              placeholder={t("products.titlePlaceholder", "Nhập tiêu đề sản phẩm")}
-            />
-          </div>
-
-          <div className={s.formGroup}>
-            <label htmlFor="description">
-              {t("products.description", "Mô tả")}
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              rows="4"
-              placeholder={t("products.descriptionPlaceholder", "Nhập mô tả sản phẩm")}
-            />
-          </div>
-
-          <div className={s.formRow}>
+          {/* Thông tin cơ bản */}
+          <div className={s.formSection}>
+            <h3 className={s.sectionTitle}>📝 Thông tin cơ bản</h3>
+            
             <div className={s.formGroup}>
-              <label htmlFor="price">
-                {t("products.price", "Giá")} <span className={s.required}>*</span>
+              <label htmlFor="title">
+                {t("products.title", "Tiêu đề")} <span className={s.required}>*</span>
               </label>
               <input
-                type="number"
-                id="price"
-                name="price"
-                value={formData.price}
+                type="text"
+                id="title"
+                name="title"
+                value={formData.title}
                 onChange={handleInputChange}
+                onBlur={handleBlur}
                 required
-                min="0"
-                step="0.01"
-                placeholder="0.00"
+                placeholder={t("products.titlePlaceholder", "Nhập tiêu đề sản phẩm")}
+                className={validationErrors.title ? s.inputError : ''}
               />
+              {validationErrors.title && (
+                <div className={s.fieldError}>{validationErrors.title}</div>
+              )}
             </div>
 
             <div className={s.formGroup}>
-              <label htmlFor="categoryId">
-                {t("products.category", "Danh mục")}
+              <label htmlFor="description">
+                {t("products.description", "Mô tả")}
               </label>
-              <select
-                id="categoryId"
-                name="categoryId"
-                value={formData.categoryId}
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
                 onChange={handleInputChange}
-              >
-                <option value="">Chọn danh mục</option>
-                <option value="1">Laptop</option>
-                <option value="2">Smartwatch</option>
-                <option value="3">Phone</option>
-              </select>
+                rows="4"
+                placeholder={t("products.descriptionPlaceholder", "Nhập mô tả chi tiết về sản phẩm của bạn...")}
+              />
             </div>
           </div>
 
-          <div className={s.formGroup}>
-            <label htmlFor="condition">
-              {t("products.condition", "Tình trạng")}
-            </label>
-            <select
-              id="condition"
-              name="condition"
-              value={formData.condition}
-              onChange={handleInputChange}
-            >
-              <option value="">{t("products.selectCondition", "Chọn tình trạng")}</option>
-              <option value="new">Mới</option>
-              <option value="used">Đã sử dụng</option>
-              <option value="refurbished">Tân trang</option>
-            </select>
+          {/* Giá và danh mục */}
+          <div className={s.formSection}>
+            <h3 className={s.sectionTitle}>💰 Giá và phân loại</h3>
+            
+            <div className={s.formRow}>
+              <div className={s.formGroup}>
+                <label htmlFor="price">
+                  {t("products.price", "Giá")} <span className={s.required}>*</span>
+                </label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  value={formData.price}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  required
+                  min="0"
+                  step="0.01"
+                  placeholder="0.00"
+                  className={validationErrors.price ? s.inputError : ''}
+                />
+                {validationErrors.price && (
+                  <div className={s.fieldError}>{validationErrors.price}</div>
+                )}
+              </div>
+
+              <div className={s.formGroup}>
+                <label htmlFor="categoryId">
+                  {t("products.category", "Danh mục")}
+                </label>
+                <select
+                  id="categoryId"
+                  name="categoryId"
+                  value={formData.categoryId}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Chọn danh mục</option>
+                  <option value="1">💻 Laptop</option>
+                  <option value="2">⌚ Smartwatch</option>
+                  <option value="3">📱 Phone</option>
+                </select>
+              </div>
+            </div>
+
+            <div className={s.formRow}>
+              <div className={s.formGroup}>
+                <label htmlFor="condition">
+                  {t("products.condition", "Tình trạng")}
+                </label>
+                <select
+                  id="condition"
+                  name="condition"
+                  value={formData.condition}
+                  onChange={handleInputChange}
+                >
+                  <option value="">{t("products.selectCondition", "Chọn tình trạng")}</option>
+                  <option value="new">✨ Mới</option>
+                  <option value="used">🔄 Đã sử dụng</option>
+                  <option value="refurbished">🛠️ Tân trang</option>
+                </select>
+              </div>
+
+              <div className={s.formGroup}>
+                <label htmlFor="locations">
+                  {t("products.locations", "Vị trí")}
+                </label>
+                <input
+                  type="text"
+                  id="locations"
+                  name="locations"
+                  value={formData.locations}
+                  onChange={handleInputChange}
+                  placeholder={t("products.locationsPlaceholder", "Nhập vị trí của bạn")}
+                />
+              </div>
+            </div>
           </div>
 
-          <div className={s.formGroup}>
-            <label htmlFor="locations">
-              {t("products.locations", "Vị trí")}
-            </label>
-            <input
-              type="text"
-              id="locations"
-              name="locations"
-              value={formData.locations}
-              onChange={handleInputChange}
-              placeholder={t("products.locationsPlaceholder", "Nhập vị trí")}
-            />
-          </div>
-
-          {/* Image Upload Section */}
-          <div className={s.formGroup}>
-            <label htmlFor="images">
-              {t("products.images", "Ảnh sản phẩm")}
-            </label>
-            <div className={s.imageUpload}>
-              <input
-                type="file"
-                id="images"
-                multiple
-                accept="image/*"
-                onChange={handleFileSelect}
-                className={s.fileInput}
-              />
-              <label htmlFor="images" className={s.fileLabel}>
-                <span className={s.uploadIcon}>📷</span>
-                <span>Chọn ảnh (có thể chọn nhiều file)</span>
-                <span className={s.fileHint}>JPEG, PNG, GIF - Tối đa 5MB mỗi file</span>
-              </label>
+          {/* Hình ảnh sản phẩm */}
+          <div className={s.formSection}>
+            <h3 className={s.sectionTitle}>📸 Hình ảnh sản phẩm</h3>
+            
+            <div className={s.formGroup}>
+              <div 
+                className={`${s.imageUpload} ${isDragOver ? s.dragOver : ''}`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                <input
+                  type="file"
+                  id="images"
+                  multiple
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  className={s.fileInput}
+                />
+                <label htmlFor="images" className={s.fileLabel}>
+                  <span className={s.uploadIcon}>📷</span>
+                  <span className={s.uploadText}>
+                    {isDragOver ? 'Thả ảnh vào đây' : 'Kéo thả ảnh hoặc nhấp để chọn'}
+                  </span>
+                  <span className={s.fileHint}>
+                    Hỗ trợ JPEG, PNG, GIF • Tối đa 5MB mỗi file • Có thể chọn nhiều ảnh
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
 

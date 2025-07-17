@@ -81,26 +81,6 @@ export const categoriesData = [
     title: "Gaming",
     id: 6,
   },
-  {
-    iconName: "furniture",
-    title: "Furniture",
-    id: 7,
-  },
-  {
-    iconName: "shirt",
-    title: "Clothes",
-    id: 8,
-  },
-  {
-    iconName: "dogHand",
-    title: "Animal",
-    id: 9,
-  },
-  {
-    iconName: "makeup",
-    title: "makeup",
-    id: 10,
-  },
 ];
 
 export const aboutCardsInfo = [

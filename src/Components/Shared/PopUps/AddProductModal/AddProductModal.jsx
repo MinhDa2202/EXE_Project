@@ -85,21 +85,34 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
       return;
     }
 
-    setSelectedFiles(files);
+    // Check total number of files (current + new)
+    const totalFiles = imagePreviews.length + files.length;
+    if (totalFiles > 10) {
+      setError("Tối đa 10 ảnh cho mỗi sản phẩm");
+      return;
+    }
+
+    // Add new files to existing ones
+    const newFiles = [...selectedFiles, ...files];
+    setSelectedFiles(newFiles);
     setError("");
 
-    // Create preview URLs
-    const previews = files.map(file => ({
+    // Create preview URLs for new files
+    const newPreviews = files.map(file => ({
       file,
       url: URL.createObjectURL(file),
       name: file.name
     }));
-    setImagePreviews(previews);
+    
+    // Add new previews to existing ones
+    setImagePreviews(prev => [...prev, ...newPreviews]);
   };
 
   const handleFileSelect = (e) => {
     const files = Array.from(e.target.files);
     processFiles(files);
+    // Reset input value để có thể chọn lại cùng file
+    e.target.value = '';
   };
 
   const handleDragOver = (e) => {
@@ -130,10 +143,21 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
     setImagePreviews(newPreviews);
   };
 
+  const removeAllImages = () => {
+    // Revoke all URLs to prevent memory leaks
+    imagePreviews.forEach(preview => {
+      URL.revokeObjectURL(preview.url);
+    });
+
+    setSelectedFiles([]);
+    setImagePreviews([]);
+  };
+
+  // Improved upload function with better error handling and progress tracking
   const uploadImages = async (productId) => {
     if (selectedFiles.length === 0) return;
 
-    setUploadProgress("Đang upload ảnh...");
+    setUploadProgress(`Đang upload ${selectedFiles.length} ảnh...`);
 
     const formData = new FormData();
     selectedFiles.forEach(file => {
@@ -150,27 +174,37 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
         body: formData
       });
 
-      //   console.log('Upload response status:', response.status);
-      //   console.log('Upload response ok:', response.ok);
-
       if (!response.ok) {
-        // Lấy chi tiết lỗi từ server
         let errorMessage = 'Không thể upload ảnh';
-        try {
-          const errorData = await response.text();
-          console.log('Upload error response:', errorData);
-          errorMessage = errorData || errorMessage;
-        } catch (e) {
-          console.log('Could not read upload error response:', e);
+        
+        if (response.status === 401) {
+          errorMessage = 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';
+        } else if (response.status === 403) {
+          errorMessage = 'Bạn không có quyền upload ảnh';
+        } else if (response.status === 413) {
+          errorMessage = 'File quá lớn. Vui lòng chọn ảnh nhỏ hơn 5MB';
+        } else if (response.status === 400) {
+          errorMessage = 'Định dạng file không hợp lệ. Chỉ chấp nhận JPEG, PNG, GIF';
+        } else {
+          try {
+            const errorData = await response.text();
+            console.log('Upload error response:', errorData);
+            errorMessage = errorData || errorMessage;
+          } catch (e) {
+            console.log('Could not read upload error response:', e);
+          }
         }
+        
         throw new Error(errorMessage);
       }
 
       const result = await response.json();
       console.log('Upload successful:', result);
+      setUploadProgress(`Upload thành công ${selectedFiles.length} ảnh!`);
       return result;
     } catch (error) {
       console.error('Upload error:', error);
+      setUploadProgress(''); // Clear progress on error
       throw error;
     }
   };
@@ -178,25 +212,33 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // console.log("=== SUBMIT STARTED ===");
-    // console.log("Token:", token);
-    // console.log("isSignedIn:", isSignedIn);
-    // console.log("FormData:", formData);
-
     setIsSubmitting(true);
     setError("");
     setUploadProgress("");
 
     if (!token || !isSignedIn) {
-      console.log("No token or not signed in");
       setError("Bạn cần đăng nhập để thêm sản phẩm");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Validate required fields
+    const errors = {};
+    if (!formData.title.trim()) {
+      errors.title = "Tiêu đề là bắt buộc";
+    }
+    if (!formData.price || parseFloat(formData.price) <= 0) {
+      errors.price = "Giá phải lớn hơn 0";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
       setIsSubmitting(false);
       return;
     }
 
     try {
       // Step 1: Create product
-      //   console.log("Step 1: Creating product...");
       setUploadProgress("Đang tạo sản phẩm...");
 
       const payload = {
@@ -204,8 +246,6 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
         price: parseFloat(formData.price) || 0,
         categoryId: parseInt(formData.categoryId) || 0
       };
-
-      //   console.log("Payload to send:", payload);
 
       const productResponse = await fetch("https://localhost:7235/api/Product", {
         method: "POST",
@@ -216,9 +256,6 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
         body: JSON.stringify(payload)
       });
 
-      //   console.log("Response status:", productResponse.status);
-      //   console.log("Response ok:", productResponse.ok);
-
       if (!productResponse.ok) {
         let errorMessage = "Không thể tạo sản phẩm";
 
@@ -226,6 +263,8 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
           errorMessage = "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.";
         } else if (productResponse.status === 403) {
           errorMessage = "Bạn không có quyền thêm sản phẩm";
+        } else if (productResponse.status === 400) {
+          errorMessage = "Thông tin sản phẩm không hợp lệ. Vui lòng kiểm tra lại.";
         } else {
           try {
             const errorData = await productResponse.text();
@@ -239,54 +278,45 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
         throw new Error(errorMessage);
       }
 
-
-      // Trong AddProductModal.jsx - Sửa phần success
       const createdProduct = await productResponse.json();
-      // console.log("=== CREATED PRODUCT RESPONSE ===");
-      // console.log("Raw API response:", createdProduct);
-      // console.log("Product ID:", createdProduct.id);
-      // console.log("Product Title:", createdProduct.title);
-      // console.log("Product Price:", createdProduct.price);
-      // console.log("Product CategoryId:", createdProduct.categoryId);
-      // console.log("Product Description:", createdProduct.description);
-      // console.log("Product Condition:", createdProduct.condition);
-      // console.log("Product Locations:", createdProduct.locations);
+      console.log("Product created successfully:", createdProduct);
 
       // Step 2: Upload images if any
       if (selectedFiles.length > 0) {
-        console.log("Step 2: Uploading images...");
+        console.log(`Uploading ${selectedFiles.length} images...`);
         try {
           await uploadImages(createdProduct.id);
-          setUploadProgress("Upload ảnh thành công!");
+          // Progress message already set in uploadImages function
         } catch (uploadError) {
           console.warn("Image upload failed, but product was created:", uploadError);
-          setUploadProgress("Sản phẩm đã được tạo, nhưng upload ảnh thất bại.");
+          setError(`Sản phẩm đã được tạo thành công, nhưng upload ảnh thất bại: ${uploadError.message}`);
+          setUploadProgress("");
+          
+          // Still call onProductAdded because product was created successfully
+          setTimeout(() => {
+            onProductAdded();
+          }, 2000);
+          return;
         }
+      } else {
+        setUploadProgress("Thêm sản phẩm thành công!");
       }
 
-      // Success
-      // console.log("=== SUCCESS - CALLING onProductAdded ===");
-      setUploadProgress("Thêm sản phẩm thành công!");
-
-      // Gọi callback ngay lập tức
-      onProductAdded();
+      // Success - wait a moment to show success message then close
+      setTimeout(() => {
+        onProductAdded();
+      }, 1000);
 
     } catch (err) {
-      console.error("=== ERROR ===");
-      console.error("Error details:", err);
-      console.error("Error message:", err.message);
-      console.error("Error stack:", err.stack);
-
+      console.error("Error creating product:", err);
       setError(err.message || "Đã xảy ra lỗi khi thêm sản phẩm");
-      setUploadProgress(""); // Clear progress message
+      setUploadProgress("");
     } finally {
-      //   console.log("=== FINALLY BLOCK ===");
-      //   console.log("Setting isSubmitting to false");
       setIsSubmitting(false);
     }
   };
 
-  // Cleanup preview URLs on unmount - FIX: sử dụng useEffect thay vì useState
+  // Cleanup preview URLs on unmount
   useEffect(() => {
     return () => {
       imagePreviews.forEach(preview => {
@@ -473,7 +503,7 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
                     {isDragOver ? 'Thả ảnh vào đây' : 'Kéo thả ảnh hoặc nhấp để chọn'}
                   </span>
                   <span className={s.fileHint}>
-                    Hỗ trợ JPEG, PNG, GIF • Tối đa 5MB mỗi file • Có thể chọn nhiều ảnh
+                    Hỗ trợ JPEG, PNG, GIF • Tối đa 5MB mỗi file • Có thể chọn nhiều ảnh (tối đa 10 ảnh)
                   </span>
                 </label>
               </div>
@@ -483,7 +513,17 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
           {/* Image Previews */}
           {imagePreviews.length > 0 && (
             <div className={s.imagePreviewContainer}>
-              <h4>Ảnh đã chọn ({imagePreviews.length}):</h4>
+              <div className={s.imagePreviewHeader}>
+                <h4>Ảnh đã chọn ({imagePreviews.length}/10):</h4>
+                <button
+                  type="button"
+                  className={s.removeAllButton}
+                  onClick={removeAllImages}
+                  title="Xóa tất cả ảnh"
+                >
+                  🗑️ Xóa tất cả
+                </button>
+              </div>
               <div className={s.imagePreviewGrid}>
                 {imagePreviews.map((preview, index) => (
                   <div key={index} className={s.imagePreview}>
@@ -492,6 +532,7 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
                       type="button"
                       className={s.removeImage}
                       onClick={() => removeImage(index)}
+                      title={`Xóa ${preview.name}`}
                     >
                       ×
                     </button>

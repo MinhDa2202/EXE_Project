@@ -6,7 +6,7 @@ import { favIconToolTipLeftPos } from "src/Functions/componentsFunctions";
 import { isItemFound } from "src/Functions/helper";
 import SvgIcon from "../../../MiniComponents/SvgIcon";
 import ToolTip from "../../../MiniComponents/ToolTip";
-import s from "./ProductCardFavIcon.module.scss";
+import s from "./ProductCardIcons.module.scss";
 
 const ProductCardFavIcon = ({ product, productId }) => {
   const {

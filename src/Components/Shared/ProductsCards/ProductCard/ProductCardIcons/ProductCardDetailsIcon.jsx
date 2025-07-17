@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { detailsIconToolTipLeftPos } from "src/Functions/componentsFunctions";
 import SvgIcon from "../../../MiniComponents/SvgIcon";
 import ToolTip from "../../../MiniComponents/ToolTip";
-import s from "./ProductCardDetailsIcon.module.scss";
+import s from "./ProductCardIcons.module.scss";
 
 const ProductCardDetailsIcon = ({ navigateToProductDetails }) => {
   const { t, i18n } = useTranslation();

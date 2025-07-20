@@ -12,7 +12,7 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
 
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
+    descriptions: "",
     price: "",
     condition: "",
     locations: "",
@@ -247,6 +247,8 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
         categoryId: parseInt(formData.categoryId) || 0
       };
 
+      console.log("Sending payload to API:", JSON.stringify(payload, null, 2));
+
       const productResponse = await fetch("https://localhost:7235/api/Product", {
         method: "POST",
         headers: {
@@ -385,16 +387,16 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
             </div>
 
             <div className={s.formGroup}>
-              <label htmlFor="description">
+              <label htmlFor="descriptions">
                 {t("products.description", "Mô tả")}
               </label>
               <textarea
-                id="description"
-                name="description"
-                value={formData.description}
+                id="descriptions"
+                name="descriptions"
+                value={formData.descriptions}
                 onChange={handleInputChange}
                 rows="4"
-                placeholder={t("products.descriptionPlaceholder", "Nhập mô tả chi tiết về sản phẩm của bạn...")}
+                placeholder={t("products.descriptionsPlaceholder", "Nhập mô tả chi tiết về sản phẩm của bạn...")}
               />
             </div>
           </div>

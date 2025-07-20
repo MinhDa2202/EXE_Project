@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import AddToFavButton from "./AddToFavButton/AddToFavButton";
 import s from "./ProductDealingControls.module.scss";
 
-const ProductDealingControls = ({ productData }) => {
+const ProductDealingControls = ({ productData, onReportProduct }) => {
   const navigate = useNavigate();
 
 const handleMessageSeller = () => {
@@ -67,6 +67,14 @@ const handleMessageSeller = () => {
         >
           <span className={s.buttonIcon}>🔗</span>
           <span className={s.buttonText}>Chia sẻ</span>
+        </button>
+
+        <button 
+          className={s.reportButton}
+          onClick={onReportProduct}
+        >
+          <span className={s.buttonIcon}>⚠️</span>
+          <span className={s.buttonText}>Báo cáo</span>
         </button>
       </div>
 

@@ -37,9 +37,9 @@ const UserMenu = ({ isActive, toggler }) => {
         />
       </NavLink>
 
-      <NavLink to="/cancellations" aria-label="Cancellations page">
-        <SvgIcon name="cancel" />
-        <span>{t("userMenuItems.cancellations")}</span>
+      <NavLink to="/my-reports" aria-label="My Reports page">
+        <SvgIcon name="exclamation" />
+        <span>{t("userMenuItems.my_reports")}</span>
       </NavLink>
 
       <NavLink to="/reviews" aria-label="Reviews page">

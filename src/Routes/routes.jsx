@@ -9,6 +9,7 @@ import DonMua from "../Components/DonMua/DonMua";
 import FavoritePage from "../Components/FavoritePage/FavoritePage";
 import Home from "../Components/Home/Home";
 import LogIn from "../Components/LogIn/LogIn";
+import MyReportsPage from "../Components/MyReportsPage/MyReportsPage";
 import NotFoundPage from "../Components/NotFoundPage/NotFoundPage";
 import OrderPage from "../Components/OrderPage/OrderPage";
 import ProductDetailsPage from "../Components/ProductDetailsPage/ProductDetailsPage";
@@ -34,5 +35,6 @@ export const ROUTES_CONFIG = [
   { path: "/profile", element: <AccountPage /> },
   { path: "/search", element: <SearchPage /> },
   { path: "/chat", element: <ChatPage /> },
+  { path: "/my-reports", element: <MyReportsPage /> },
   { path: "*", element: <NotFoundPage /> },
 ];

@@ -445,7 +445,7 @@
       "addressBook": "Address Book",
       "paymentOptions": "My Payment Options",
       "returns": "My Returns",
-      "cancellations": "My Cancellations"
+      "my_reports": "My Reports"
     }
   },
   "cartPage": {
@@ -470,7 +470,7 @@
   "userMenuItems": {
     "profile": "Manage My Account",
     "cart": "My Order",
-    "cancellations": "My Cancellations",
+    "my_reports": "My Reports",
     "reviews": "My Reviews",
     "wishlist": "Wishlist",
     "logout": "Logout"

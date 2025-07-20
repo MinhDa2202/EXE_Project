@@ -28,5 +28,13 @@ export default defineConfig({
     hmr: {
       clientPort: 5173,      // Đảm bảo client kết nối đúng port, nhất là khi qua proxy/Docker
     },
+    proxy: {
+      '/api': {
+        target: 'https://localhost:7235',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      },
+    },
   },
 });

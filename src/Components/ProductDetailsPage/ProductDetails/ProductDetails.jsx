@@ -11,7 +11,7 @@ import s from "./ProductDetails.module.scss";
 import ProductFirstInfos from "./ProductFirstInfos/ProductFirstInfos";
 import ProductSizes from "./ProductSizes/ProductSizes";
 
-const ProductDetails = ({ productData: originalProductData }) => {
+const ProductDetails = ({ productData: originalProductData, onReportProduct }) => {
   if (!originalProductData) return <Navigate to="product-not-found" />;
 
   const productData = useMemo(() => {
@@ -69,7 +69,7 @@ const ProductDetails = ({ productData: originalProductData }) => {
 
             <ProductColorsSection productData={productData} />
             {productData?.sizes && <ProductSizes productData={productData} />}
-            <ProductDealingControls productData={productData} />
+            <ProductDealingControls productData={productData} onReportProduct={onReportProduct} />
           </section>
         </section>
       )}

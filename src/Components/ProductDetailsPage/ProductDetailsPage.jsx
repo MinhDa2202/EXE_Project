@@ -2,6 +2,8 @@
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import ReportProductModal from "../Shared/PopUps/ReportProductModal/ReportProductModal";
 import { WEBSITE_NAME } from "src/Data/constants";
 import useSingleProduct from "src/Hooks/App/useSingleProduct";
 import useScrollOnMount from "src/Hooks/App/useScrollOnMount";
@@ -16,6 +18,7 @@ const ProductDetailsPage = () => {
   const PRODUCT_ID = useGetSearchParam("id");
   const { product: PRODUCT_DATA, error } = useSingleProduct(PRODUCT_ID, "id");
   const { loadingProductDetails } = useSelector((state) => state.loading);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   // Fallback data while loading or if error
   const productCategory = PRODUCT_DATA?.category?.toLowerCase() || "unknown";
@@ -150,7 +153,10 @@ const ProductDetailsPage = () => {
       <div className="container">
         <main className={s.detailsPage}>
           <PagesHistory history={history} historyPaths={historyPaths} />
-          <ProductDetails productData={PRODUCT_DATA} />
+          <ProductDetails 
+            productData={PRODUCT_DATA} 
+            onReportProduct={() => setIsReportModalOpen(true)}
+          />
           
           {/* Phần thông tin bổ sung và bình luận */}
           <div className={s.additionalInfo}>
@@ -206,6 +212,12 @@ const ProductDetailsPage = () => {
           />
         </main>
       </div>
+
+      <ReportProductModal
+        show={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        productId={PRODUCT_ID}
+      />
     </>
   );
 };

@@ -13,12 +13,9 @@
 }
 
 .productName {
-  font-size: 1.8rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1f2937;
   line-height: 1.3;
   margin: 0;
   letter-spacing: -0.02em;
@@ -177,12 +174,9 @@
 }
 
 .price {
-  font-size: 1.8rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ef4444;
   text-shadow: none;
   letter-spacing: -0.01em;
 }

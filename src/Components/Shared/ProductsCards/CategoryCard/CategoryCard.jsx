@@ -1,28 +1,22 @@
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { camelCase } from "src/Functions/helper";
 import SvgIcon from "../../MiniComponents/SvgIcon";
 import s from "./CategoryCard.module.scss";
 
 const CategoryCard = ({ categoryData }) => {
-  const { iconName, title } = categoryData;
-  const categoryType = title.toLowerCase();
-  const navigateTo = useNavigate();
+  const { iconName, name, id } = categoryData;
   const { t } = useTranslation();
-  const categoryTitleTrans = t(`categoriesData.${camelCase(title)}`);
-
-  function navigateToCategory() {
-    navigateTo(`/category?type=${categoryType}`);
-  }
+  const categoryTitleTrans = t(`categoriesData.${camelCase(name)}`, name);
 
   return (
     <Link
+      to={`/category?id=${id}&name=${name.toLowerCase()}`}
       className={s.card}
       title={categoryTitleTrans}
-      onClick={navigateToCategory}
     >
       <SvgIcon name={iconName} />
-      <span>{categoryTitleTrans}</span>
+      <span>{name}</span>
     </Link>
   );
 };

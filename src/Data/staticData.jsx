@@ -50,39 +50,6 @@ export const introductionSliderData = [
   },
 ];
 
-export const categoriesData = [
-  {
-    iconName: "mobile",
-    title: "Phones",
-    id: 1,
-  },
-  {
-    iconName: "computer",
-    title: "Computers",
-    id: 2,
-  },
-  {
-    iconName: "smartWatch",
-    title: "SmartWatch",
-    id: 3,
-  },
-  {
-    iconName: "camera",
-    title: "Camera",
-    id: 4,
-  },
-  {
-    iconName: "headphone",
-    title: "HeadPhones",
-    id: 5,
-  },
-  {
-    iconName: "gamepad",
-    title: "Gaming",
-    id: 6,
-  },
-];
-
 export const aboutCardsInfo = [
   {
     iconName: "shop",
@@ -429,3 +396,5 @@ export const billingInputsData = [
     regex: regexPatterns.email,
   },
 ];
+
+

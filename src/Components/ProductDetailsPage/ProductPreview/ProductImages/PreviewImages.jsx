@@ -25,7 +25,7 @@ const PreviewImages = ({ productData }) => {
       const canLeft = scrollLeft > 5;
       const canRight = scrollLeft < scrollWidth - clientWidth - 5;
       
-      console.log('Scroll check:', { scrollLeft, scrollWidth, clientWidth, canLeft, canRight });
+      // console.log('Scroll check:', { scrollLeft, scrollWidth, clientWidth, canLeft, canRight });
       
       setCanScrollLeft(canLeft);
       setCanScrollRight(canRight);
@@ -69,14 +69,14 @@ const PreviewImages = ({ productData }) => {
 
   // Hàm scroll thumbnails sang trái
   const scrollLeft = () => {
-    console.log('🔥 Scroll Left clicked!');
+    // console.log('🔥 Scroll Left clicked!');
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
-      console.log('Container before scroll:', {
-        scrollLeft: container.scrollLeft,
-        scrollWidth: container.scrollWidth,
-        clientWidth: container.clientWidth
-      });
+      // console.log('Container before scroll:', {
+      //   scrollLeft: container.scrollLeft,
+      //   scrollWidth: container.scrollWidth,
+      //   clientWidth: container.clientWidth
+      // });
       
       container.scrollBy({
         left: -200,
@@ -85,11 +85,11 @@ const PreviewImages = ({ productData }) => {
       
       // Update scroll state sau khi scroll
       setTimeout(() => {
-        console.log('Container after scroll:', {
-          scrollLeft: container.scrollLeft,
-          scrollWidth: container.scrollWidth,
-          clientWidth: container.clientWidth
-        });
+        // console.log('Container after scroll:', {
+        //   scrollLeft: container.scrollLeft,
+        //   scrollWidth: container.scrollWidth,
+        //   clientWidth: container.clientWidth
+        // });
         checkScrollability();
       }, 300);
     }
@@ -97,14 +97,14 @@ const PreviewImages = ({ productData }) => {
 
   // Hàm scroll thumbnails sang phải
   const scrollRight = () => {
-    console.log('🔥 Scroll Right clicked!');
+    // console.log('🔥 Scroll Right clicked!');
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
-      console.log('Container before scroll:', {
-        scrollLeft: container.scrollLeft,
-        scrollWidth: container.scrollWidth,
-        clientWidth: container.clientWidth
-      });
+      // console.log('Container before scroll:', {
+      //   scrollLeft: container.scrollLeft,
+      //   scrollWidth: container.scrollWidth,
+      //   clientWidth: container.clientWidth
+      // });
       
       container.scrollBy({
         left: 200,
@@ -113,11 +113,11 @@ const PreviewImages = ({ productData }) => {
       
       // Update scroll state sau khi scroll
       setTimeout(() => {
-        console.log('Container after scroll:', {
-          scrollLeft: container.scrollLeft,
-          scrollWidth: container.scrollWidth,
-          clientWidth: container.clientWidth
-        });
+        // console.log('Container after scroll:', {
+        //   scrollLeft: container.scrollLeft,
+        //   scrollWidth: container.scrollWidth,
+        //   clientWidth: container.clientWidth
+        // });
         checkScrollability();
       }, 300);
     }
@@ -126,13 +126,13 @@ const PreviewImages = ({ productData }) => {
   const hasMultipleImages = productData?.otherImages?.length > 1;
   const hasEnoughImagesToScroll = productData?.otherImages?.length > 1; // Hiện buttons khi có nhiều hơn 1 ảnh
 
-  console.log('PreviewImages render:', {
-    hasMultipleImages,
-    hasEnoughImagesToScroll,
-    imagesCount: productData?.otherImages?.length,
-    canScrollLeft,
-    canScrollRight
-  });
+  // console.log('PreviewImages render:', {
+  //   hasMultipleImages,
+  //   hasEnoughImagesToScroll,
+  //   imagesCount: productData?.otherImages?.length,
+  //   canScrollLeft,
+  //   canScrollRight
+  // });
 
   return (
     <div className={s.thumbnailContainer}>

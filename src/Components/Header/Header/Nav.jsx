@@ -25,11 +25,18 @@ const Nav = () => {
 
         {/* Only show Sign Up link when user is not logged in */}
         {!loginInfo.isSignIn && (
-          <li className={s.authLink}>
-            <NavLink to="/signup" className={s.signUpLink}>
-              {t("nav.signUp")}
-            </NavLink>
-          </li>
+          <>
+            <li className={s.authLink}>
+              <NavLink to="/login" className={s.signUpLink}>
+                {t("nav.logIn", "Login")}
+              </NavLink>
+            </li>
+            <li className={s.authLink}>
+              <NavLink to="/signup" className={s.signUpLink}>
+                {t("nav.signUp")}
+              </NavLink>
+            </li>
+          </>
         )}
       </ul>
     </nav>

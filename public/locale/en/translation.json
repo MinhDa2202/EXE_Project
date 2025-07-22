@@ -275,8 +275,8 @@
   "aboutPage": {
     "heroSection": {
       "heading": "Our Story",
-      "paragraphOne": "Launched in 2025, Recloop Mart is Vietnam’s leading online platform for buying and selling second-hand tech products. With a mission to connect the tech-loving community, Recloop Mart creates a transparent, secure, and easy-to-use environment where buyers and sellers can meet and negotiate freely. Recloop Mart does not handle payments or shipping, serving solely as a trusted bridge between both parties.",
-      "paragraphTwo": "Recloop Mart features thousands of pre-owned tech items, ranging from smartphones, laptops, and cameras to computer components. With a well-organized listing system, efficient search tools, and transparent user reviews, Recloop Mart supports thousands of monthly visits—helping users save money and contribute to environmental sustainability through tech reuse.",
+      "paragraphOne": "Ra mắt năm 2025, Recloop Mart là nền tảng trực tuyến hàng đầu Việt Nam về mua bán sản phẩm công nghệ cũ. Với sứ mệnh kết nối cộng đồng yêu công nghệ, Recloop Mart tạo ra một môi trường minh bạch, an toàn và dễ sử dụng, nơi người mua và người bán có thể gặp gỡ và thương lượng một cách tự do. Recloop Mart không xử lý thanh toán hay vận chuyển, mà chỉ đóng vai trò là cầu nối đáng tin cậy giữa hai bên.",
+      "paragraphTwo": "Recloop Mart có hàng ngàn mặt hàng công nghệ đã qua sử dụng, từ điện thoại thông minh, máy tính xách tay, máy ảnh đến linh kiện máy tính. Với hệ thống niêm yết được tổ chức tốt, công cụ tìm kiếm hiệu quả và đánh giá minh bạch từ người dùng, Recloop Mart đón tiếp hàng ngàn lượt truy cập hàng tháng - giúp người dùng tiết kiệm chi phí và đóng góp vào sự bền vững của môi trường thông qua việc tái sử dụng công nghệ.",
       "imageAlt": "two young women happy with shopping"
     },
     "cardInfo": {
@@ -343,7 +343,7 @@
   },
   "productPoster": {
     "title": "Categories",
-    "subTitle": "Enhance Your Music Experience"
+    "subTitle": "Nâng cao trải nghiệm âm nhạc của bạn"
   },
   "notFoundPage": {
     "tabTitle": "Page Not Found",
